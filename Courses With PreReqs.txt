@@ -1,0 +1,107 @@
+-------------------------
+Fall '16 CS Courses
+-------------------------
+
+Scripting I - 10457 - CS 115 - 01
+
+Scripting I - 10458 - CS 115 - 02
+
+Scripting II - 10916 - CS 116 - 01
+	Undergraduate level CS 115 Minimum Grade of C
+
+Programming I - 10859 - CS 120 - 01
+	Undergraduate level MATH 124 or Undergraduate level MATH 185 or Math Placement 124 or Undergraduate level MATH 109  or Math Placement 109 or Undergraduate level CS 115 Minimum Grade of D
+
+Programming I - 10860 - CS 120 - 02
+	Undergraduate level MATH 124 or Undergraduate level MATH 185 or Math Placement 124 or Undergraduate level MATH 109  or Math Placement 109 or Undergraduate level CS 115 Minimum Grade of D
+
+Programming II: Data Struct - 10852 - CS 130 - 01
+	Undergraduate level CS 120 Minimum Grade of C
+
+Object-Oriented Programming - 10878 - CS 230 - 01
+	Undergraduate level CS 130 Minimum Grade of C
+
+Contest Programming - 10850 - CS 311 - 01
+	Undergraduate level CS 130 Minimum Grade of C
+
+Mobile Computing I - 10910 - CS 315 - 01
+	(Undergraduate level IT 220 Minimum Grade of C and Undergraduate level CS 116 Minimum Grade of C) or Undergraduate level CS 120 Minimum Grade of C
+
+Human-Computer Interaction- 10880 - CS 330 - 01
+	Undergraduate level CS 116 Minimum Grade of C or Undergraduate level CS 120 Minimum Grade of C
+
+Design & Analysis of Algorithm - 10851 - CS 332 - 01
+	Undergraduate level CS 130 Minimum Grade of C and Undergraduate level MATH 227 Minimum Grade of C
+
+Numerical Methods - 11129 - CS 341 - 01
+	Undergraduate level CS 120 Minimum Grade of D and Undergraduate level MATH 186 Minimum Grade of D
+
+Software Engineering - 10853 - CS 374 - 01
+	Undergraduate level CS 230 Minimum Grade of C
+
+-----------------------------
+Fall '16 MATH Courses
+-----------------------------
+
+Precalculus I - 10325 - MATH 109 - 01
+	Undergraduate level ACAD 102 Minimum Grade of C or ACT Math 2- or SAT Math 500 or Math Placement 109 or Math Placement 121 or Undergraduate level MATW 019 Minimum Grade of D
+
+Quantitative Reasoning - 11128 - MATH 120 - 01
+	Undergraduate level ACAD 104 Minimum Grade of C or Undergraduate level ACAD 102 Minimum Grade of C or ACT Math 20 or SAT Math 500 or Math Placement 120
+
+Quantitative Reasoning - 10326 - MATH 120 - T1
+	Undergraduate level ACAD 104 Minimum Grade of C or Undergraduate level ACAD 102 Minimum Grade of C or ACT Math 20 or SAT Math 500 or Math Placement 120
+
+Quantitative Reasoning - 10327 - MATH 120 - T2
+	Undergraduate level ACAD 104 Minimum Grade of C or Undergraduate level ACAD 102 Minimum Grade of C or ACT Math 20 or SAT Math 500 or Math Placement 120
+
+Precalculus II - 10330 - MATH 124 - 01
+	Undergraduate level MATH 109 Minimum Grade D or Math Placement 124 or Undergraduate level MATH 121 Minimum Grade of D
+
+Precalculus II - 10331 - MATH 124 - 02
+	Undergraduate level MATH 109 Minimum Grade D or Math Placement 124 or Undergraduate level MATH 121 Minimum Grade of D
+
+Finite Math of Applications - 10333 - MATH 130 - 02
+	Undergraduate level ACAD 102 Minimum Grade of C or ACT Math 20 or SAT Math 500 or Math Placement 120
+
+Calculus I - 10344 - MATH 185 - 01
+	Undergraduate level MATH 124 Minimum Grade of D or Math Placement 185
+
+Calculus I - 10345 - MATH 185 - 02
+	Undergraduate level MATH 124 Minimum Grade of D or Math Placement 185
+
+Calculus II - 10334 - MATH 186 - 01
+	Undergraduate level MATH 185 Minimum Grade of D
+
+Calculus Computer Lab - 10335 - MATH 187 - L1
+	Undergraduate level MATH 131 Minimum Grade of D or Undergraduate level MATH 185 Minimum Grade of D
+
+Discrete Mathematics - 10336 MATH 227 - 01
+	Undergraduate level MATH 185 Minimum Grade of D or Undergraduate level CS 120 Minimum Grade of D
+
+Number and Operations - 10337 - MATH 237 - T1
+	MATH 120 or MATH 123 or ( MATW 020 and MATW 120)
+
+Geometry and Measurement - 10338 - MATH 238 - T1
+	Undergraduate level MATH 237 Minimum Grade of C or Undergraduate level MATH 147 Minimum Grade of C
+
+Calculus II - 10339 - MATH 286 - 01
+	Undergraduate level MATH 186 Minimum Grade of D
+
+Linear Programming - 1130 - MATH 334 - 01
+	(Undergraduate level MATH 127 Minimum Grade of D or Undergraduate level MATH 227 Minimum Grade of D) or Undergraduate level MATH 130 Minimum Grade of D
+
+Numerical Methods - 10340 - MATH 341 - 01 
+	Undergraduate level CS 120 Minimum Grade of D and Undergraduate level MATH 186 Minimum Grade of D
+
+Ordinary Differential Equation - 11341 - MATH 361 - 02
+	Undergraduate level MATH 186 Minimum Grade of D
+
+Algebraic Concpts for Teach II - 10375 - MATH 410 - 01
+	Undergraduate level MATH 309 Minimum Grade of D
+
+Prof. Dev. Experience in Math - 11298 MATH 418 - L1
+	(Undergraduate level MATH 309 Minimum Grade of D or Undergraduate level MATH 311 Minimum Grade of D)
+
+Mathematics Capstone - 10347 - MATH 497 - 01
+	Undergraduate level MATH 397 Minimum Grade of D
