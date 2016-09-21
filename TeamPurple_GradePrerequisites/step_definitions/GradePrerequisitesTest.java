@@ -17,11 +17,20 @@ public class GradePrerequisitesTest
 		GradePrerequisites G = new GradePrerequisites();
 		G.equals(G);
 	}
-	@Given("Stuff")
-	public void Given()
-	{
-		assertTrue(true);
-	}
+	
+    @Given("^\"(.*?)\" and \"(.*?)\"$")
+    public void and(String banner, String crn) throws Throwable {
+        
+        
+    }
+    
+    @Then("^the student is \"(.*?)\" to be enrolled in the course$")
+    public void theStudentIsToBeEnrolledInTheCourse(String enrollment) throws Throwable {
+        
+        
+    }
+
+    
 }
 
 /**
