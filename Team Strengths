@@ -24,3 +24,28 @@ Strengths: natural diplomat, listener, attention to detail
 Perform: list maker, night person, enjoys collaborating
 Values: respecting others, honesty, each contributing equally
 Contribution: a realistic plan for what we can accomplish in the amount of time we are given, coding that makes sense and is easy to understand with proper variable names and comments and such
+
+Sebastian Snyder:
+Top three strengths:
+		I am really good at breaking problems down
+		I perform well under pressure
+		(Strength ?) I am really good at "games of definitions" (I am very pedantic.)
+		
+		
+How do I perform:
+		I like to have checklists
+		I don't like to use more resources than I have to.
+		I continue to think about better solutions after I complete a problem.
+
+		
+What are my values:
+		I am honest
+		I don't beat around the bush; I'll tell you how it is
+		I strive to improve myself
+		Purple
+		
+
+What can be expected of my contributions:
+		I will over-document everything I write; you will be able to run the javadoc tool on my code
+		I will make an effort to keep everything abstract; I will not use strings and ints to represent something else, I'll make a class for it.
+		I will write efficient code whereever possible.
