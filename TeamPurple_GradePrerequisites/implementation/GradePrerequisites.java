@@ -22,6 +22,13 @@ public class GradePrerequisites
 {
 	public static void main(String[] args)
 	{
-		System.out.println("YO!");
+		if(args.length == 2)
+		{
+			Student S = new Student();
+			S.SetBanner(args[0]);
+			System.out.println(S.CanTakeCourse(args[1]));
+		}
+		else
+			System.out.println("This program requires exactly two things to run: A BannerID and a CRN.");
 	}
 }
