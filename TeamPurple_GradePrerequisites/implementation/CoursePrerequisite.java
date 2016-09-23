@@ -16,4 +16,9 @@ public class CoursePrerequisite{
   public char getMinGrade(){
     return minGrade;
   }
+  
+  @Override
+  public boolean isMetBy(Student stu){
+    return true;
+  }
 }
