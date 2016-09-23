@@ -15,6 +15,8 @@ package implementation;
 
 
 /**
+ * A class that contains the main method that allows this program
+ * to run as a command line tool.
  * 
  * @author Sebastian Snyder
  */
