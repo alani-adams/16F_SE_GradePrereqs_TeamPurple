@@ -16,3 +16,5 @@ Student
 Prerequisite
     Any condition a student is required to satisfy in order to take a course.
     
+    Course Prerequisite
+        A course that must be taken as a prerequisite, usually with a minimum grade requirement.
