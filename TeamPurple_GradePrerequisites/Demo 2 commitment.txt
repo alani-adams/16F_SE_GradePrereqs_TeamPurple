@@ -1,0 +1,2 @@
+Courses with multiple prerequisites will be implemented. 
+Different types of prerequisites, such as SAT and ACT scores and placement tests, will also be implemented.
