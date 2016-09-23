@@ -49,7 +49,7 @@ public class Student
 	{
 		for(Prerequisite P : C.GetPrerequisites())
 		{
-			if(!P.isMetBy(this))
+			if(!P.IsMetBy(this))
 				return false;
 		}
 		return true;
