@@ -3,7 +3,7 @@ package implementation;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-/*
+/**
  * A class designed to store a course and its prerequisites
  */
 public final class Course
@@ -18,7 +18,7 @@ public final class Course
 	private String CRN;
 	//public Prerequisite[] Prereqs;
 
-	/*
+	/**
 	 * Adds the course data to the internal list of all course data
 	 */
 	public static void RegisterCourse(String Code, String CRN, String Prereq)
@@ -38,7 +38,7 @@ public final class Course
 		
 	}
 	
-	/*
+	/**
 	 * Creates a Course object from the given CRN
 	 * @param CRN the CRN to look up
 	 * @returns a Course with the given CRN
@@ -48,13 +48,12 @@ public final class Course
 		return GetFromCRN(CRN,null);
 	}
 	
-	/*
+	/**
 	 * Creates a Course object from the given CRN and gives it a grade
 	 * @param CRN the CRN to look up
 	 * @param Grade the grade earned
 	 * @returns a Course with the given CRN and grade
 	 */
-	
 	public static Course GetFromCRN(String CRN, Character Grade)
 	{
 		Course c = new Course(CRN, Grade);
@@ -67,7 +66,8 @@ public final class Course
 		this.CRN = CRN;
 		this.Grade = Grade;
 	}
-	/*
+	
+	/**
 	 * Gets the CRN of this course
 	 * @returns the CRN of this course
 	 */
@@ -75,7 +75,16 @@ public final class Course
 	{
 		return CRN;
 	}
-	/*
+	/**
+	 * Gets the Course Code of this course
+	 * @returns the Course Code of this course
+	 */
+	public String GetCourseCode()
+	{
+		return Data.getCode();
+	}
+	
+	/**
 	 * Gets the grade made this course.
 	 * @returns Grade 
 	 * @throws NullPointerException if grade has not been set
@@ -87,7 +96,7 @@ public final class Course
 		return Grade;
 	}
 	
-	/*
+	/**
 	 * Sets the grade made in this course.
 	 * @param Grade The grade made in this course
 	 */
@@ -96,6 +105,10 @@ public final class Course
 		this.Grade = Grade;
 	}
 	
+	/**
+	 * Returns a TreeSet containing all of this course's Prerequisites
+	 * @return a TreeSet containing all of this course's Prerequisites
+	 */
 	public TreeSet<Prerequisite> GetPrerequisites()
 	{
 		return Data.GetPrerequisites();
