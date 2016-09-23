@@ -26,11 +26,16 @@ public class GradePrerequisitesTest
 		Students = new HashMap<String,Student>();
 	}
 	
-	@Given("^\"(.*?)\" with a CRN of \"(.*?)\" with a prereq of \"(.*?)\"$")
+	@Given("^\"(.*?)\" with a CRN of \"(.*?)\" with a prerequisite of \"(.*?)\"$")
 	public void with_a_CRN_of_with_a_prereq_of(String arg1, String arg2, String arg3) throws Throwable {
 	    Course.RegisterCourse(arg1,arg2,arg3);
 	}
-
+	
+	@Given("^\"(.*?)\" with a CRN of \"(.*?)\" with no prerequisite$")
+	public void with_a_CRN_of_with_no_prereq(String arg1, String arg2) throws Throwable {
+	    Course.RegisterCourse(arg1,arg2,null);
+	}
+	
 	@Given("^\"(.*?)\" has taken \"(.*?)\" and recieved a \"(.*?)\"$")
 	public void has_taken_and_recieved_a(String arg1, String arg2, String arg3) throws Throwable
 	{
@@ -55,7 +60,8 @@ public class GradePrerequisitesTest
 	@Then("^the student \"(.*?)\" allowed to be enrolled in \"(.*?)\"$")
 	public void the_student_allowed_to_be_enrolled_in_the_course(String arg1, String arg2) throws Throwable {
 	    boolean disallowed = arg1.equals("is not");
-	    Assert.assertTrue(disallowed ^ TestStudent.CanTakeCourse(Course.GetFromCRN(arg2)));
+	    boolean testallowed = TestStudent.CanTakeCourse(Course.GetFromCRN(arg2));
+	    Assert.assertTrue(disallowed ^ testallowed);
 	}
 
     
