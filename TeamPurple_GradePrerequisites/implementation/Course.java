@@ -16,7 +16,6 @@ public final class Course
 	private CourseData Data;
 	private Character Grade;
 	private String CRN;
-	//public Prerequisite[] Prereqs;
 
 	/**
 	 * Adds the course data to the internal list of all course data
