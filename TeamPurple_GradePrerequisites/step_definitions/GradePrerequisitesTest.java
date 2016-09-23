@@ -71,16 +71,9 @@ class TestFailedException extends Exception
 {
 	//So that the compiler stops yelling at me
 	private static final long serialVersionUID = 1L;
-	private String Message;
 	
 	public TestFailedException(String M)
 	{
-		Message = M;
-	}
-	
-	@Override
-	public String getMessage()
-	{
-		return Message;
+		super(M);
 	}
 }
