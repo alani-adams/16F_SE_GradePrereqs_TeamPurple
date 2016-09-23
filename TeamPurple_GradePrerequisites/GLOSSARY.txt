@@ -1,0 +1,18 @@
+BannerID
+    A nine-digit string that is unique to each student.
+
+Course
+    An entity that has a Course Code, and an optional set of prerequisites.
+    
+Course Code
+    The code that can be used to describe a course, such as "IT101".
+
+CRN
+    The unique (somewhat) five-digit code that can be used to refer to a specific course section.
+    
+Student
+    An entity that has a Banner ID and an optional set of taken courses.
+    
+Prerequisite
+    Any condition a student is required to satisfy in order to take a course.
+    
