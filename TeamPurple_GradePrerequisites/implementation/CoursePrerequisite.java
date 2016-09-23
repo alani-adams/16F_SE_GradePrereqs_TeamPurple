@@ -1,13 +1,15 @@
 package implementation;
 
-public class CoursePrerequisite{
+import java.util.ArrayList;
+
+public class CoursePrerequisite extends Prerequisite{
     private String courseCode;
     private char minGrade;
   
-    public CoursePrerequisite( String code, char grade)
+    public CoursePrerequisite(String code, char grade)
     {
-    courseCode = code;
-    minGrade = grade;
+	    courseCode = code;
+	    minGrade = grade;
     }
   
     public String GetCourseCode()
@@ -21,12 +23,17 @@ public class CoursePrerequisite{
   
     @Override
     public boolean IsMetBy(Student stu){
+    	
         ArrayList<Course> cour = stu.GetTakenCourses();
         for(Course c : cour)
         {
-            if(courseCode.equals(c.GetCourseCode))
-                if((char)(c.GetGrade()) >= GetMinGrade())
+            if(courseCode.equals(c.GetCourseCode()))
+            {
+                if((char)(c.GetGrade()) <= GetMinGrade())
+                {
                     return true;
+                }
+            }
         }
       
     return false;

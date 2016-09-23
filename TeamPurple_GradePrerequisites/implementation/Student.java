@@ -18,6 +18,16 @@ public class Student
 	public Student(String BannerID)
 	{
 		CoursesTaken = new ArrayList<Course>();
+		Banner = BannerID;
+	}
+	
+	/**
+	 * Gets the Student's Banner ID
+	 * @return the Student's Banner ID
+	 */
+	public String GetBanner()
+	{
+		return Banner;
 	}
 	
 	/**

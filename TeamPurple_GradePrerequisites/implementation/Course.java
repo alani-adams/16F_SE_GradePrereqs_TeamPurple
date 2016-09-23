@@ -1,7 +1,7 @@
 package implementation;
 
 import java.util.HashMap;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 /**
  * A class designed to store a course and its prerequisites
@@ -26,7 +26,7 @@ public final class Course
 		//For example, if "IT300" has two CRNs.
 		if(!AllData.containsKey(Code))
 		{
-			CD = new CourseData(Code);
+			CD = new CourseData(Code,Prereq);
 			AllData.put(Code, CD);
 		}
 		else
@@ -108,7 +108,7 @@ public final class Course
 	 * Returns a TreeSet containing all of this course's Prerequisites
 	 * @return a TreeSet containing all of this course's Prerequisites
 	 */
-	public TreeSet<Prerequisite> GetPrerequisites()
+	public HashSet<Prerequisite> GetPrerequisites()
 	{
 		return Data.GetPrerequisites();
 	}
@@ -118,12 +118,14 @@ public final class Course
 class CourseData
 {
 	private String Code;
-	private final TreeSet<Prerequisite> Prerequisites;
+	private final HashSet<Prerequisite> Prerequisites;
 	
-	public CourseData(String c)
+	public CourseData(String c, String p)
 	{
 		Code = c;
-		Prerequisites = new TreeSet<Prerequisite>();
+		Prerequisites = new HashSet<Prerequisite>();
+		if(p != null)
+			Prerequisites.add(new CoursePrerequisite(p,'C'));
 	}
 	
 	public String getCode()
@@ -136,7 +138,7 @@ class CourseData
 		Prerequisites.add(P);
 	}
 	
-	public TreeSet<Prerequisite> GetPrerequisites()
+	public HashSet<Prerequisite> GetPrerequisites()
 	{
 		return Prerequisites;
 	}
