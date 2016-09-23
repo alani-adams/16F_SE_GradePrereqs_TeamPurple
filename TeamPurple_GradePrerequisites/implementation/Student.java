@@ -38,6 +38,11 @@ public class Student
 	 */
 	public boolean CanTakeCourse(Course C)
 	{
+		for(Prerequisite P : C.GetPrerequisites())
+		{
+			if(!P.isMetBy(this))
+				return false;
+		}
 		return true;
 	}
 }
