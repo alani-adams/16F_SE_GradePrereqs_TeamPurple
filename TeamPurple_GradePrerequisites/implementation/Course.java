@@ -1,6 +1,7 @@
 package implementation;
 
 import java.util.HashMap;
+import java.util.TreeSet;
 
 /*
  * A class designed to store a course and its prerequisites
@@ -94,15 +95,37 @@ public final class Course
 	{
 		this.Grade = Grade;
 	}
+	
+	public TreeSet<Prerequisite> GetPrerequisites()
+	{
+		return Data.GetPrerequisites();
+	}
 }
 
 
 class CourseData
 {
-	public String Code;
+	private String Code;
+	private final TreeSet<Prerequisite> Prerequisites;
 	
 	public CourseData(String c)
 	{
 		Code = c;
+		Prerequisites = new TreeSet<Prerequisite>();
+	}
+	
+	public String getCode()
+	{
+		return Code;
+	}
+	
+	public void addPrerequisite(Prerequisite P)
+	{
+		Prerequisites.add(P);
+	}
+	
+	public TreeSet<Prerequisite> GetPrerequisites()
+	{
+		return Prerequisites;
 	}
 }
