@@ -13,18 +13,11 @@ public class Student
 	
 	/*
 	 * Creates a new student that has not taken any courses.
+	 * @param BannerID The student's BannerID
 	 */
-	public Student()
+	public Student(String BannerID)
 	{
 		CoursesTaken = new ArrayList<Course>();
-	}
-	
-	/*
-	 * Gives the Student a banner ID.
-	 */
-	public void SetBanner(String BannerID)
-	{
-		Banner = BannerID;
 	}
 	
 	/*
@@ -45,7 +38,6 @@ public class Student
 	 */
 	public boolean CanTakeCourse(Course C)
 	{
-		Banner = Banner + "";
-		return false;
+		return true;
 	}
 }

@@ -26,9 +26,10 @@ public class GradePrerequisites
 	{
 		if(args.length == 2)
 		{
-			Student S = new Student();
-			S.SetBanner(args[0]);
-			System.out.println(S.CanTakeCourse(args[1]));
+			//Parse packaged data here
+			
+			Student S = new Student(args[0]);
+			System.out.println(S.CanTakeCourse(Course.GetFromCRN(args[1])));
 		}
 		else
 			System.out.println("This program requires exactly two things to run: A BannerID and a CRN.");
