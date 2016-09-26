@@ -1,0 +1,6 @@
+
+Progress:
+
+9.26.16: We have completed the majority of the implementation. 
+We still need to parse the csv, handle different types of prerequisites, and add more test cases to the feature file.
+We are estimating that we are about 35% done.
