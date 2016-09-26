@@ -72,15 +72,22 @@ Background: Prereqs
 	Given "000481199" has taken "10859" and recieved a "B"
 	Given "000321267" has taken "10859" and recieved a "F"
 
-	Given "000111111" has taken "10852" and received a "A" #Case with 2 "and" prereqs, passed both
+	#Case with 2 "and" prereqs, passed both
+	Given "000111111" has taken "10852" and received a "A"
 	Given "000111111" has taken "10336" and received a "A"
-	Given "000222222" has taken "10344" and recieved a "A" #Case with 2 "and" prereqs, fails one
+	#Case with 2 "and" prereqs, fails one
+	Given "000222222" has taken "10344" and recieved a "A"
 	Given "000222222" has taken "10859" and recieved a "F"
-	Given "000333333" has taken "M$P120" and recieved a "A" #Case with Math Placement Test
-	Given "000444444" has taken "ACT Math" and recieved a "25" #Case with ACT Math, meets threshold
-	Given "000555555" has taken "ACT Math" and recieved a "19" #Case with ACT Math, doesn't meet threshold
-	Given "000666666" has taken "SAT Math" and recieved a "800" #Case with SAT Math, meets threshold
-	Given "000777777" has taken "SAT Math" and recieved a "40" #Case with SAT Math, doesn't meet threshold
+	#Case with Math Placement Test
+	Given "000333333" has taken "M$P120" and recieved a "A"
+	#Case with ACT Math, meets threshold
+	Given "000444444" has taken "ACT Math" and recieved a "25"
+	#Case with ACT Math, doesn't meet threshold
+	Given "000555555" has taken "ACT Math" and recieved a "19"
+	#Case with SAT Math, meets threshold
+	Given "000666666" has taken "SAT Math" and recieved a "800"
+	#Case with SAT Math, doesn't meet threshold
+	Given "000777777" has taken "SAT Math" and recieved a "40"
 
 
 Scenario Outline: Student Take Course
