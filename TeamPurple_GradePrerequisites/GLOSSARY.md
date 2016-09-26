@@ -1,5 +1,5 @@
 **abstract class**  
-    A java class that cannot be instantiated; Instead, a class must inherit from it.
+    A java class that cannot be instantiated; Instead, its functionality must be inherited.
 
 **BannerID**  
     A nine-digit string that is unique to each student.
