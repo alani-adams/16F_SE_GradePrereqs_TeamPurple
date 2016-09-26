@@ -1,3 +1,6 @@
+abstract class
+    A java class that cannot be instantiated; Instead, a class must inherit from it.
+
 BannerID
     A nine-digit string that is unique to each student.
 
@@ -16,5 +19,15 @@ Student
 Prerequisite
     Any condition a student is required to satisfy in order to take a course.
     
+    ACT Score Prerequisite
+        A minimum ACT score prerequisite, either overall or a specific section.
+    
+    SAT Score Prerequisite
+        A minimum SAT score prerequisite, either overall or a specific section.
+        
+    Compound Prerequisite
+        Any prerequisite defined by other prerequisites seperated by logical operators such as and/or and whose order of operations can be denoted by parenteses.
+    
     Course Prerequisite
         A course that must be taken as a prerequisite, usually with a minimum grade requirement.
+        
