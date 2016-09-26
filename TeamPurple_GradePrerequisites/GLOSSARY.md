@@ -18,15 +18,15 @@
     
 **Prerequisite**  
     Any condition a student is required to satisfy in order to take a course.
-    
-    **ACT Score Prerequisite**  
-        A minimum ACT score prerequisite, either overall or a specific section.
-    
-    **SAT Score Prerequisite**  
-        A minimum SAT score prerequisite, either overall or a specific section.
-        
-    **Compound Prerequisite**  
-        Any prerequisite defined by other prerequisites seperated by logical operators such as and/or and whose order of operations can be denoted by parenteses.
-    
-    **Course Prerequisite**  
-        A course that must be taken as a prerequisite, usually with a minimum grade requirement.
+ >    
+ > **ACT Score Prerequisite**  
+ >     A minimum ACT score prerequisite, either overall or a specific section.
+ >     
+ > **SAT Score Prerequisite**  
+ >     A minimum SAT score prerequisite, either overall or a specific section.
+ >         
+ > **Compound Prerequisite**  
+ >     Any prerequisite defined by other prerequisites seperated by logical operators such as and/or and whose order of operations can be denoted by parenteses.
+ >     
+ > **Course Prerequisite**  
+ >     A course that must be taken as a prerequisite, usually with a minimum grade requirement.
