@@ -69,20 +69,20 @@ Background: Prereqs
 	Given "MATH497" with a CRN of "10347"
 	
 	#Student Info
-	Given "000481289" has taken "10457" and recieved a "A"
-	Given "000481199" has taken "10859" and recieved a "B"
-	Given "000321267" has taken "10859" and recieved a "F"
+	Given "000481289" has taken "10457" and received a "A"
+	Given "000481199" has taken "10859" and received a "B"
+	Given "000321267" has taken "10859" and received a "F"
 
 	#Case with 2 "and" prereqs, passed both
 	Given "000111111" has taken "10852" and received a "A"
 	Given "000111111" has taken "10336" and received a "A"
 
 	#Case with 2 "and" prereqs, fails one
-	Given "000222222" has taken "10344" and recieved a "A"
-	Given "000222222" has taken "10859" and recieved a "F"
+	Given "000222222" has taken "10344" and received a "A"
+	Given "000222222" has taken "10859" and received a "F"
 
 	#Case with Math Placement Test
-	Given "000333333" has taken course "MATH$P120" and recieved a "A"
+	Given "000333333" has taken course "MATH$P120" and received a "A"
 
 	#Case with ACT Math, meets threshold
 	Given "000444444" has a ACT "Math" score of "25"
@@ -97,19 +97,19 @@ Background: Prereqs
 	Given "000777777" has a SAT "Math" score of "40"
 
 	#Case with logical or
-	Given "000888888" has taken "10325" and recieved a "A"
-	Given "000999999" has taken course "MATH$P124" and recieved a "A"
-	Given "000123456" has taken "10457" and recieved a "B"
-	Given "000234567" has taken "10325" and recieved a "B"
-	Given "000234567" has taken course "MATH$P124" and recieved a "A"
+	Given "000888888" has taken "10325" and received a "A"
+	Given "000999999" has taken course "MATH$P124" and received a "A"
+	Given "000123456" has taken "10457" and received a "B"
+	Given "000234567" has taken "10325" and received a "B"
+	Given "000234567" has taken course "MATH$P124" and received a "A"
 
 	#Case with compound and/or
-	Given "111111111" has taken "10844" and recieved a "A"
-	Given "111111111" has taken "10916" and recieved a "B"
-	Given "111111111" has taken "10859" and recieved a "A"
-	Given "222222222" has taken "10844" and recieved a "A"
-	Given "222222222" has taken "10916" and recieved a "C"
-	Given "333333333" has taken "10859" and recieved a "A"
+	Given "111111111" has taken "10844" and received a "A"
+	Given "111111111" has taken "10916" and received a "B"
+	Given "111111111" has taken "10859" and received a "A"
+	Given "222222222" has taken "10844" and received a "A"
+	Given "222222222" has taken "10916" and received a "C"
+	Given "333333333" has taken "10859" and received a "A"
 
 Scenario Outline: Student Take Course
 	Given A student with BannerID <banner>
