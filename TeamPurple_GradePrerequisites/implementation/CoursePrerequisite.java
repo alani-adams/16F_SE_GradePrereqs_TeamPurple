@@ -2,23 +2,24 @@ package implementation;
 
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Alani Peters, Sebastian Snyder
+ *
+ */
 public class CoursePrerequisite extends Prerequisite{
     private String courseCode;
     private char minGrade;
   
+    /**
+     * 
+     * @param code
+     * @param grade
+     */
     public CoursePrerequisite(String code, char grade)
     {
 	    courseCode = code;
 	    minGrade = grade;
-    }
-  
-    public String GetCourseCode()
-    {
-        return courseCode;
-    }
-  
-    public char GetMinGrade(){
-        return minGrade;
     }
   
     @Override
@@ -29,7 +30,7 @@ public class CoursePrerequisite extends Prerequisite{
         {
             if(courseCode.equals(c.GetCourseCode()))
             {
-                if((char)(c.GetGrade()) <= GetMinGrade())
+                if((char)(c.GetGrade()) <= minGrade)
                 {
                     return true;
                 }
