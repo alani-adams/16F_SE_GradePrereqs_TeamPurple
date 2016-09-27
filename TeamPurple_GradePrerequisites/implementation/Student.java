@@ -22,8 +22,8 @@ public class Student
 	{
 		CoursesTaken = new ArrayList<Course>();
 		Banner = BannerID;
-        TestScores = new HashMap<String,int>()
-    }
+        	TestScores = new HashMap<String,int>()
+    	}
 	
 	/**
 	 * Gets the Student's Banner ID
