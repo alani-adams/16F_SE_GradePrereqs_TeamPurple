@@ -10,7 +10,9 @@ public class Student
 {
 	private String Banner;
 	private ArrayList<Course> CoursesTaken;
-	
+    //Maps TestType to TestScore
+    private final HashMap<String,int> TestScores;
+    
 	/**
 	 * Creates a new student that has not taken any courses.
 	 * @param BannerID The student's BannerID
@@ -19,7 +21,8 @@ public class Student
 	{
 		CoursesTaken = new ArrayList<Course>();
 		Banner = BannerID;
-	}
+        TestScores = = new HashMap<String,int>()
+    }
 	
 	/**
 	 * Gets the Student's Banner ID
@@ -64,4 +67,21 @@ public class Student
 		}
 		return true;
 	}
+    
+    
+    public void SetTestScore(String T, int S)
+    {
+        TestScores.put(T, S);
+    }
+    
+    public int GetTestScore(String TestType)
+    {
+        return TestScores.get(TestType);
+    }
+    
+    /**
+     * Returns an ArrayList containing all Courses taken by the student
+     * @return an ArrayList containing all Courses taken by the student
+     */
+
 }
