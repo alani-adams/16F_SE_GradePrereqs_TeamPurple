@@ -19,8 +19,8 @@
 **CRN**  
     The unique (somewhat) five-digit code that can be used to refer to a specific section of a course.
     
-**Placement Test Code**
-    A course code whose coure domain has a "$P" suffix, i.e. "MATH$P120".
+**Placement Test Code**  
+    A course code whose coure domain has a "$P" suffix, i.e. "MATH$P120".  
     This code refers to a placement test rather than a course.
     
 **Prerequisite**  
