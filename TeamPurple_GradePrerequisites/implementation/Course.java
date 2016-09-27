@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 /**
  * A class designed to store a course and its prerequisites
+ * @author Sebastian Snyder
  */
 public final class Course
 {
@@ -18,25 +19,46 @@ public final class Course
 	private String CRN;
 
 	/**
-	 * Adds the course data to the internal list of all course data
+	 * Adds the course data to the internal list of all course data or adds
+	 * a prerequisite to the specified course.
+	 * @param Code The course code to register or add to
+	 * @param Prereq The course's prerequisite. null may be passed in if none desired.
 	 */
-	public static void RegisterCourse(String Code, String CRN, String Prereq)
+	public static void RegisterCourse(String Code, String Prereq)
 	{
 		CourseData CD;
-		//For example, if "IT300" has two CRNs.
-		if(!AllData.containsKey(Code))
-		{
-			CD = new CourseData(Code,Prereq);
-			AllData.put(Code, CD);
-		}
-		else
-		{
+		if(AllData.containsKey(Code))
 			CD = AllData.get(Code);
-		}
-		AllCourses.put(CRN, CD);
+		else
+			CD = new CourseData(Code);
 		
+		CD.addPrerequisite(Prereq);
+		
+		AllData.put(Code, CD);
 	}
 	
+	
+	/**
+	 * Adds the CRN to the internal list of sections and maps it to
+	 * the specified course code.
+	 * @param CRN The CRN to map.
+	 * @param Code The Course code to map to.
+	 */
+	public static void RegisterCRN(String CRN, String Code)
+	{
+		if(AllCourses.containsKey(CRN))
+		{
+			//throw new IllegalArgumentException("CRN "+CRN+" already registered");// (as course "+AllCourses.get(CRN).getCode()+")");
+			return;
+		}
+		if(AllData.containsKey(Code))
+			AllCourses.put(CRN, AllCourses.get(Code));
+		else
+		{
+			//throw new IllegalStateException("Course "+Code+" not yet registered.");
+			return;
+		}
+	}
 	/**
 	 * Creates a Course object from the given CRN
 	 * @param CRN the CRN to look up
@@ -57,6 +79,29 @@ public final class Course
 	{
 		Course c = new Course(CRN, Grade);
 		c.Data = AllCourses.get(CRN);
+		return c;
+	}
+
+	/**
+	 * Creates a Course object from the given Code
+	 * @param Code the Code to look up
+	 * @returns a Course with the given Code
+	 */
+	public static Course GetFromCode(String Code)
+	{
+		return GetFromCode(Code,null);
+	}
+	
+	/**
+	 * Creates a Course object from the given Code and gives it a grade
+	 * @param Code the Code to look up
+	 * @param Grade the grade earned
+	 * @returns a Course with the given Code and grade
+	 */
+	public static Course GetFromCode(String Code, Character Grade)
+	{
+		Course c = new Course(null, Grade);
+		c.Data = AllData.get(Code);
 		return c;
 	}
 	
@@ -120,14 +165,18 @@ class CourseData
 	private String Code;
 	private final HashSet<Prerequisite> Prerequisites;
 	
-	public CourseData(String c, String p)
+	public CourseData(String c)
 	{
 		Code = c;
 		Prerequisites = new HashSet<Prerequisite>();
+	}
+	
+	public void addPrerequisite(String p)
+	{
 		if(p != null)
 			Prerequisites.add(new CoursePrerequisite(p,'C'));
 	}
-	
+
 	public String getCode()
 	{
 		return Code;
