@@ -12,7 +12,7 @@ public class Student
 	private String Banner;
 	private ArrayList<Course> CoursesTaken;
     //Maps TestType to TestScore
-    private final HashMap<String,int> TestScores;
+    private final HashMap<String,Integer> TestScores;
     
 	/**
 	 * Creates a new student that has not taken any courses.
@@ -22,7 +22,7 @@ public class Student
 	{
 		CoursesTaken = new ArrayList<Course>();
 		Banner = BannerID;
-        	TestScores = new HashMap<String,int>()
+        	TestScores = new HashMap<String,Integer>();
     	}
 	
 	/**
@@ -75,7 +75,7 @@ public class Student
         TestScores.put(T, S);
     }
     
-    public int GetTestScore(String TestType)
+    public Integer GetTestScore(String TestType)
     {
         return TestScores.get(TestType);
     }
