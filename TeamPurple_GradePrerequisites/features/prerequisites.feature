@@ -85,16 +85,16 @@ Background: Prereqs
 	Given "000333333" has taken course "MATH$P120" and received a "A"
 
 	#Case with ACT Math, meets threshold
-	Given "000444444" has a ACT "Math" score of "25"
+	Given "000444444" has a "ACT Math" score of "25"
 
 	#Case with ACT Math, doesn't meet threshold
-	Given "000555555" has a ACT "Math" score of "19"
+	Given "000555555" has a "ACT Math" score of "19"
 
 	#Case with SAT Math, meets threshold
-	Given "000666666" has a SAT "Math" score of "800"
+	Given "000666666" has a "SAT Math" score of "800"
 
 	#Case with SAT Math, doesn't meet threshold
-	Given "000777777" has a SAT "Math" score of "40"
+	Given "000777777" has a "SAT Math" score of "40"
 
 	#Case with logical or
 	Given "000888888" has taken "10325" and received a "A"
