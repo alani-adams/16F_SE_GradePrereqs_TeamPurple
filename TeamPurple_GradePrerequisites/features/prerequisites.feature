@@ -16,14 +16,13 @@ Background: Prereqs
 	Given "CS341" has a prerequisite of "CS120 and MATH186"
 	Given "CS374" has a prerequisite of "CS230"
 
-	Given "ACT Math" has a minimum score of "20"
-	Given "SAT Math" has a minimum score of "500"
+	Given "IT220" has a prerequisite of "CS115 or CS120"
 
-	Given "MATH109" has a prerequisite of "ACAD102 or M$P109 or M$P121 or MATW019"
-	Given "MATH120" has a prerequisite of "ACAD104 or ACT Math or SAT Math or M$P120 or MATW019"
-	Given "MATH124" has a prerequisite of "MATH109 or M$P124 or MATH121"
-	Given "MATH130" has a prerequisite of "ACAD102 or ACT Math or SAT Math or M$P120"
-	Given "MATH185" has a prerequisite of "MATH124 or M$P185"
+	Given "MATH109" has a prerequisite of "ACAD102 or MATH$P109 or M$P121 or MATW019"
+	Given "MATH120" has a prerequisite of "ACAD104 or ACT Math 20 or SAT Math 500 or MATH$P120 or MATW019"
+	Given "MATH124" has a prerequisite of "MATH109 or MATH$P124 or MATH121"
+	Given "MATH130" has a prerequisite of "ACAD102 or ACT Math 20 or SAT Math 500 or MATH$P120"
+	Given "MATH185" has a prerequisite of "MATH124 or MATH$P185"
 	Given "MATH186" has a prerequisite of "MATH185"
 	Given "MATH187" has a prerequisite of "MATH131 or MATH185"
 	Given "MATH227" has a prerequisite of "MATH185 or CS120"
@@ -48,6 +47,8 @@ Background: Prereqs
 	Given "CS332" with a CRN of "10851"
 	Given "CS341" with a CRN of "11129"
 	Given "CS374" with a CRN of "10853"
+
+	Given "IT220" with a CRN of "10844"
 
 	Given "MATH109" with a CRN of "10325"
 	Given "MATH120" with a CRN of "11128"
@@ -75,20 +76,40 @@ Background: Prereqs
 	#Case with 2 "and" prereqs, passed both
 	Given "000111111" has taken "10852" and received a "A"
 	Given "000111111" has taken "10336" and received a "A"
+
 	#Case with 2 "and" prereqs, fails one
 	Given "000222222" has taken "10344" and recieved a "A"
 	Given "000222222" has taken "10859" and recieved a "F"
-	#Case with Math Placement Test
-	Given "000333333" has taken "M$P120" and recieved a "A"
-	#Case with ACT Math, meets threshold
-	Given "000444444" has taken "ACT Math" and recieved a "25"
-	#Case with ACT Math, doesn't meet threshold
-	Given "000555555" has taken "ACT Math" and recieved a "19"
-	#Case with SAT Math, meets threshold
-	Given "000666666" has taken "SAT Math" and recieved a "800"
-	#Case with SAT Math, doesn't meet threshold
-	Given "000777777" has taken "SAT Math" and recieved a "40"
 
+	#Case with Math Placement Test
+	Given "000333333" has taken course "MATH$P120" and recieved a "A"
+
+	#Case with ACT Math, meets threshold
+	Given "000444444" has a ACT "Math" score of "25"
+
+	#Case with ACT Math, doesn't meet threshold
+	Given "000555555" has a ACT "Math" score of "19"
+
+	#Case with SAT Math, meets threshold
+	Given "000666666" has a SAT "Math" score of "800"
+
+	#Case with SAT Math, doesn't meet threshold
+	Given "000777777" has a SAT "Math" score of "40"
+
+	#Case with logical or
+	Given "000888888" has taken "10325" and recieved a "A"
+	Given "000999999" has taken course "MATH$P124" and recieved a "A"
+	Given "000123456" has taken "10457" and recieved a "B"
+	Given "000234567" has taken "10325" and recieved a "B"
+	Given "000234567" has taken course "MATH$P124" and recieved a "A"
+
+	#Case with compound and/or
+	Given "111111111" has taken "10844" and recieved a "A"
+	Given "111111111" has taken "10916" and recieved a "B"
+	Given "111111111" has taken "10859" and recieved a "A"
+	Given "222222222" has taken "10844" and recieved a "A"
+	Given "222222222" has taken "10916" and recieved a "C"
+	Given "333333333" has taken "10859" and recieved a "A"
 
 Scenario Outline: Student Take Course
 	Given A student with BannerID <banner>
@@ -108,3 +129,11 @@ Scenario Outline: Student Take Course
 	| "000555555" | "10333" | "is not" |
 	| "000666666" | "11128" | "is"     |
 	| "000777777" | "10333" | "is not" |
+	| "000888888" | "10330" | "is" 	   |
+	| "000999999" | "10330" | "is"     |
+	| "000123456" | "10330" | "is not" |
+	| "000234567" | "10330" | "is"     |
+	| "111111111" | "10457" | "is"     |
+	| "222222222" | "10457" | "is"     |
+	| "333333333" | "10457" | "is"     |
+
