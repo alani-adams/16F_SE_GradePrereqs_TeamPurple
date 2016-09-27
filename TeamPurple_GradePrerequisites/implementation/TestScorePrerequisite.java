@@ -12,13 +12,10 @@ class TestScorePrerequsite extends Prerequisite
 	}
 
 	@Override
-    public boolean IsMetBy(Student stu)
-    {
-    
+	public boolean IsMetBy(Student stu)
+    	{
    		if (stu.getTestScore(section) >= minimumScore)
-   			return true;
-
-   		return false;
-    }
-
+   		return true;
+		return false;
+    	}
 }
