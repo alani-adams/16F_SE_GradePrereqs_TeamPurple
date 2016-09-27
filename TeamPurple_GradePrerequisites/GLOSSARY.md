@@ -9,12 +9,22 @@
     
 **Course Code**  
     The code that can be used to describe a course, such as "IT101".
-
+    
+**Course Domain**
+    The word prefix portion of the course code (the "IT" in "IT101.)
+    
+**Course Number**
+    The three digit number unique to each course within each domain (the "101" in "IT101".)
+    
 **CRN**  
-    The unique (somewhat) five-digit code that can be used to refer to a specific course section.
+    The unique (somewhat) five-digit code that can be used to refer to a specific section of a course.
     
 **Student**  
     An entity that has a Banner ID and an optional set of taken courses.
+    
+**Placement Test Code**
+    A course code whose coure domain has a "$P" suffix, i.e. "MATH$P120".
+    This code refers to a placement test rather than a course.
     
 **Prerequisite**  
     Any condition a student is required to satisfy in order to take a course.
