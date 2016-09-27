@@ -10,17 +10,14 @@
 **Course Code**  
     The code that can be used to describe a course, such as "IT101".
     
-**Course Domain**
+**Course Domain**  
     The word prefix portion of the course code (the "IT" in "IT101.)
     
-**Course Number**
+**Course Number**  
     The three digit number unique to each course within each domain (the "101" in "IT101".)
     
 **CRN**  
     The unique (somewhat) five-digit code that can be used to refer to a specific section of a course.
-    
-**Student**  
-    An entity that has a Banner ID and an optional set of taken courses.
     
 **Placement Test Code**
     A course code whose coure domain has a "$P" suffix, i.e. "MATH$P120".
@@ -40,3 +37,6 @@
  >     
  > **SAT Score Prerequisite**  
  >     A minimum SAT score prerequisite, either overall or a specific section.
+    
+**Student**  
+    An entity that has a Banner ID and an optional set of taken courses.
