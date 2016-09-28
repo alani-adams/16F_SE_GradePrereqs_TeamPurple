@@ -52,7 +52,7 @@ public final class Course
 			return;
 		}
 		if(AllData.containsKey(Code))
-			AllCourses.put(CRN, AllCourses.get(Code));
+			AllCourses.put(CRN, AllData.get(Code));
 		else
 		{
 			//throw new IllegalStateException("Course "+Code+" not yet registered.");
