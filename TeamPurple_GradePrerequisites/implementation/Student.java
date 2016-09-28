@@ -69,20 +69,27 @@ public class Student
 		return true;
 	}
     
-    
+    /**
+     * 
+     * @param T
+     * @param S
+     */
     public void SetTestScore(String T, int S)
     {
         TestScores.put(T, S);
     }
     
+    /**
+     * 
+     * @param TestType
+     * @return
+     */
     public Integer GetTestScore(String TestType)
     {
-        return TestScores.get(TestType);
+    	if(TestScores.containsKey(TestType))
+    		return TestScores.get(TestType);
+    	else
+    		return null;
     }
-    
-    /**
-     * Returns an ArrayList containing all Courses taken by the student
-     * @return an ArrayList containing all Courses taken by the student
-     */
 
 }

@@ -30,5 +30,11 @@ public class CompoundPrerequisite extends Prerequisite
 	{
 		return isOr?( first.IsMetBy(stu) || second.IsMetBy(stu) ):( first.IsMetBy(stu) && first.IsMetBy(stu) ); 
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "[" + first + (isOr?" or ":" and ") + second + "]";
+	}
 
 }

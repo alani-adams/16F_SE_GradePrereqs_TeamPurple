@@ -39,4 +39,11 @@ public class CoursePrerequisite extends Prerequisite{
       
     return false;
   }
+
+    
+    @Override
+    public String toString()
+    {
+    	return courseCode+"("+minGrade+")";
+    }
 }

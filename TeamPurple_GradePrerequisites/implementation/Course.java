@@ -178,7 +178,7 @@ class CourseData
 	public void addPrerequisite(String p)
 	{
 		if(p != null)
-			Prerequisites.add(new CoursePrerequisite(p,'C'));
+			Prerequisites.add(Prerequisite.Build(p));
 	}
 
 	public String getCode()
