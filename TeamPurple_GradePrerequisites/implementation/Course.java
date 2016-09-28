@@ -79,6 +79,8 @@ public final class Course
 	{
 		Course c = new Course(CRN, Grade);
 		c.Data = AllCourses.get(CRN);
+		if(c.Data == null)
+			throw new IllegalStateException("No Data For CRN "+CRN+" found.");
 		return c;
 	}
 
@@ -102,6 +104,8 @@ public final class Course
 	{
 		Course c = new Course(null, Grade);
 		c.Data = AllData.get(Code);
+		if(c.Data == null)
+			throw new IllegalStateException("No Data For Code "+Code+" found.");
 		return c;
 	}
 	
