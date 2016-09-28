@@ -1,11 +1,11 @@
 package implementation;
 
-class TestScorePrerequsite extends Prerequisite 
+class TestScorePrerequisite extends Prerequisite 
 {
 	String section;
 	int minimumScore;
 
-	public TestScorePrerequsite(String subject, int min)
+	public TestScorePrerequisite(String subject, int min)
 	{
 		section = subject;
 		minimumScore = min;
@@ -14,7 +14,7 @@ class TestScorePrerequsite extends Prerequisite
 	@Override
 	public boolean IsMetBy(Student stu)
     	{
-   		if (stu.getTestScore(section) >= minimumScore)
+   		if (stu.GetTestScore(section) >= minimumScore)
    		return true;
 		return false;
     	}
