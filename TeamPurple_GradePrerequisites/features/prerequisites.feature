@@ -5,6 +5,7 @@ Background: Prereqs
 
 	#Prereqs
 	Given "MATH$P120" has no prerequisite
+	Given "MATH$P124" has no prerequisite
 	Given "CS115" has no prerequisite
 	Given "CS116" has a prerequisite of "CS115"
 	Given "CS120" has a prerequisite of "MATH124 or MATH185 or MATH$P124 or MATH109 or MATH$P109 or CS115"
