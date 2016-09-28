@@ -5,7 +5,7 @@ class TestScorePrerequsite extends Prerequisite
 	String section;
 	int minimumScore;
 
-	public ACTScorePrerequsite(String subject, int min)
+	public TestScorePrerequsite(String subject, int min)
 	{
 		section = subject;
 		minimumScore = min;
