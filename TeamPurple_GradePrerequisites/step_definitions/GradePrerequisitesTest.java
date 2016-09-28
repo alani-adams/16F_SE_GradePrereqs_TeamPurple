@@ -58,18 +58,21 @@ public class GradePrerequisitesTest
 	    S.TakeCourse(Course.GetFromCode(arg2,arg3.charAt(0)));
 	}
 
-	@Given("^\"(.*?)\" has a ACT \"(.*?)\" score of \"(.*?)\"$")
-	public void has_a_ACT_score_of(String arg1, String arg2, String arg3) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	@Given("^\"(.*?)\" has a \"(.*?)\" score of \"(.*?)\"$")
+	public void has_a_score_of(String arg1, String arg2, String arg3) throws Throwable {
+		Student S;
+		if(!Students.containsKey(arg1))
+		{
+			S = new Student(arg1);
+			Students.put(arg1, S);
+		}
+		else
+		{
+			S = Students.get(arg1);
+		}
+	    S.SetTestScore(arg2, Integer.parseInt(arg3));
 	}
-
-	@Given("^\"(.*?)\" has a SAT \"(.*?)\" score of \"(.*?)\"$")
-	public void has_a_SAT_score_of(String arg1, String arg2, String arg3) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
-	}
-
+	
 	@Given("^\"(.*?)\" has taken \"(.*?)\" and received a \"(.*?)\"$")
 	public void has_taken_and_received_a(String arg1, String arg2, String arg3) throws Throwable {
 
