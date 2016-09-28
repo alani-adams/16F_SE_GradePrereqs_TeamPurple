@@ -6,7 +6,7 @@ Background: Prereqs
 	#Prereqs
 	Given "CS115" has no prerequisite
 	Given "CS116" has a prerequisite of "CS115"
-	Given "CS120" has a prerequisite of "MATH124 or MATH185 or M$P124 or MATH109 or M$P109 or CS115"
+	Given "CS120" has a prerequisite of "MATH124 or MATH185 or MATH$P124 or MATH109 or MATH$P109 or CS115"
 	Given "CS130" has a prerequisite of "CS120"
 	Given "CS230" has a prerequisite of "CS130"
 	Given "CS311" has a prerequisite of "CS130"
@@ -18,7 +18,7 @@ Background: Prereqs
 
 	Given "IT220" has a prerequisite of "CS115 or CS120"
 
-	Given "MATH109" has a prerequisite of "ACAD102 or MATH$P109 or M$P121 or MATW019"
+	Given "MATH109" has a prerequisite of "ACAD102 or MATH$P109 or MATH$P121 or MATW019"
 	Given "MATH120" has a prerequisite of "ACAD104 or ACT Math 20 or SAT Math 500 or MATH$P120 or MATW019"
 	Given "MATH124" has a prerequisite of "MATH109 or MATH$P124 or MATH121"
 	Given "MATH130" has a prerequisite of "ACAD102 or ACT Math 20 or SAT Math 500 or MATH$P120"
