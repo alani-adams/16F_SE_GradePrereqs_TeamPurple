@@ -117,25 +117,34 @@ Scenario Outline: Student Take Course
 	Given A student with BannerID <banner>
 	Then the student <allowed> allowed to be enrolled in <crn>
 
-	Examples:
+	Examples: compound prerequisites
 	| banner      | crn     | allowed  |
-	| "000481289" | "10916" | "is"     |
 	| "000481199" | "10852" | "is"     |
-	| "000321267" | "10457" | "is"     |
 	| "000321267" | "10852" | "is not" |
-	| "000321267" | "10850" | "is not" |
 	| "000111111" | "10851" | "is"     |
 	| "000222222" | "11129" | "is not" |
-	| "000333333" | "11128" | "is"     |
-	| "000444444" | "10333" | "is"     |
-	| "000555555" | "10333" | "is not" |
-	| "000666666" | "11128" | "is"     |
-	| "000777777" | "10333" | "is not" |
 	| "000888888" | "10330" | "is" 	   |
 	| "000999999" | "10330" | "is"     |
 	| "000123456" | "10330" | "is not" |
-	| "000234567" | "10330" | "is"     |
+	| "000234567" | "10330" | "is"     |	
+	
+	Examples: compound and test score prerequisites
+	| banner      | crn     | allowed  |
+	| "000333333" | "11128" | "is"     |
+	| "000444444" | "10333" | "is"     |
+	| "000555555" | "10333" | "is not" |
+	| "000777777" | "10333" | "is not" |
+	| "000666666" | "11128" | "is"     |
+
+	Examples: no prerequisite
+	| banner      | crn     | allowed  |
+	| "000321267" | "10457" | "is"     |
 	| "111111111" | "10457" | "is"     |
 	| "222222222" | "10457" | "is"     |
 	| "333333333" | "10457" | "is"     |
+
+	Examples: standard prerequisite
+	| banner      | crn     | allowed  |
+	| "000481289" | "10916" | "is"     |
+	| "000321267" | "10850" | "is not" |
 
