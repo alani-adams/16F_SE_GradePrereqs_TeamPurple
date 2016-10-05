@@ -54,7 +54,7 @@ public class CSV
 	
 	private ArrayList<String> parseRow(String Row)
 	{
-		String errRow = Row;
+		String StartRow = Row;
 		boolean SkipFirstEmpty = Row.charAt(0) == '\"';
 		Pattern P = Pattern.compile("(^|,)\"[^\"]*\"(?=(,|$))");
 		Matcher M = P.matcher(Row);
@@ -81,9 +81,14 @@ public class CSV
 			else
 				NewList.add(BaseList[i]);
 		}
+		for(int i = StartRow.length()-1;i >= 0;i--)
+			if(StartRow.charAt(i) == ',')
+				NewList.add("");
+			else
+				break;
 		//*/
 		if(ColumnNames != null && ColumnNames.size() != NewList.size())
-			throw new IllegalStateException("CSV row "+(rowCount()+1)+" is of length "+NewList.size()+" (!= "+ColumnNames.size()+") :\n"+errRow);
+			throw new IllegalStateException("CSV row "+(rowCount()+1)+" is of length "+NewList.size()+" (!= "+ColumnNames.size()+") :\n"+StartRow);
 		return NewList;
 	}
 	
@@ -226,6 +231,8 @@ public class CSV
 	 */
 	public void printToStream(PrintStream out,int[] ColSizes,int StartIndex,int EndIndex)
 	{
+		//if(1 == 1)
+		//	throw new IllegalArgumentException();
 		if(EndIndex != -1 && StartIndex > EndIndex)
 			throw new IllegalArgumentException("End index "+EndIndex+" < "+StartIndex);
 		

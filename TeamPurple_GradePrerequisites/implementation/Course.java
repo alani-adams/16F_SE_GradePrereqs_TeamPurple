@@ -161,6 +161,15 @@ public final class Course
 	{
 		return Data.GetPrerequisites();
 	}
+	
+	@Override
+	public String toString()
+	{
+		String s = "{"+Data.getCode();
+		for(Prerequisite p: Data.GetPrerequisites())
+			s+=";"+p;
+		return s+"}";
+	}
 }
 
 
