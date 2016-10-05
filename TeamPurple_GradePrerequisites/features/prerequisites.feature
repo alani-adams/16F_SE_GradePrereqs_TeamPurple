@@ -145,7 +145,7 @@ Scenario Outline: Student Take Course
     | 2778      | BIBL101   | is       |
     | 2883      | BIBL101   | is       |
     | 3011      | BIBL101   | is       |
-    | 3093      | BIBL101   | is       | #CSV row 422
+    | 3093      | BIBL101   | is       |
 
 
 
