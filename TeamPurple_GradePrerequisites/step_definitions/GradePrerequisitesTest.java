@@ -16,7 +16,8 @@ import org.junit.Assert;
  */
 public class GradePrerequisitesTest
 {
-	GradePrerequisites G;
+	static GradePrerequisites G;
+	Student TestStudent;
 	
 	@Before
 	public void Before()
@@ -24,10 +25,9 @@ public class GradePrerequisitesTest
 		if(G == null)
 		{
 			G = new GradePrerequisites();
-			G.init();
 		}
 	}
-	
+	/*
 	@Given("^\"(.*?)\" has no prerequisite$")
 	public void has_no_prerequisite(String arg1) throws Throwable {
 	    //Course.RegisterCourse(arg1, null);
@@ -42,10 +42,8 @@ public class GradePrerequisitesTest
 	public void with_a_CRN_of(String arg1, String arg2) throws Throwable {
 	    //Course.RegisterCRN(arg2, arg1);
 	}
-
 	@Given("^\"(.*?)\" has taken course \"(.*?)\" and received a \"(.*?)\"$")
 	public void has_taken_course_and_recieved_a(String arg1, String arg2, String arg3) throws Throwable {
-		/*
 		Student S;
 		if(!Students.containsKey(arg1))
 		{
@@ -57,12 +55,10 @@ public class GradePrerequisitesTest
 			S = Students.get(arg1);
 		}
 	    S.TakeCourse(Course.GetFromCode(arg2,arg3.charAt(0)));
-	    */
 	}
 
 	@Given("^\"(.*?)\" has a \"(.*?)\" score of \"(.*?)\"$")
 	public void has_a_score_of(String arg1, String arg2, String arg3) throws Throwable {
-		/*
 		Student S;
 		if(!Students.containsKey(arg1))
 		{
@@ -74,12 +70,10 @@ public class GradePrerequisitesTest
 			S = Students.get(arg1);
 		}
 	    S.SetTestScore(arg2, Integer.parseInt(arg3));
-	    */
 	}
-	
+
 	@Given("^\"(.*?)\" has taken \"(.*?)\" and received a \"(.*?)\"$")
 	public void has_taken_and_received_a(String arg1, String arg2, String arg3) throws Throwable {
-		/*
 		Student S;
 		if(!Students.containsKey(arg1))
 		{
@@ -91,22 +85,20 @@ public class GradePrerequisitesTest
 			S = Students.get(arg1);
 		}
 	    S.TakeCourse(Course.GetFromCRN(arg2,arg3.charAt(0)));
-	    */
 	}
+
+*/
 	
 	@Given("^A student with BannerID \"(.*?)\"$")
 	public void banner_and_CRN(String arg1) throws Throwable {
-	    //TestStudent = Students.get(arg1);
+	    TestStudent = G.Student(arg1);
 	}
-
 	@Then("^the student \"(.*?)\" allowed to be enrolled in \"(.*?)\"$")
 	public void the_student_allowed_to_be_enrolled_in_the_course(String arg1, String arg2) throws Throwable {
-		/*
 	    boolean disallowed = arg1.equals("is not");
 	    boolean testallowed = TestStudent.CanTakeCourse(Course.GetFromCRN(arg2));
 	    Assert.assertTrue(disallowed ^ testallowed);
-	    */
-		G.CourseData.printToStream(System.out,0,5);
+		//G.StudentData.printToStream(System.out,0,5);
 	}
 
     
