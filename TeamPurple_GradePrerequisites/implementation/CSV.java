@@ -15,45 +15,101 @@ public class CSV
 {
 	private final HashMap<String,ArrayList<String>> Data;
 	private ArrayList<String> ColumnNames;
+	private static HashMap<String,String> StringHolder = new HashMap<String,String>();
 	
-	private CSV(String filepath,int NumRows) throws FileNotFoundException
+	private CSV(String filepath,int NumRows,String[] ColNames) throws FileNotFoundException
 	{
 		Data = new HashMap<String,ArrayList<String>>();
-		parse(new File(filepath),NumRows);
+		parse(new File(filepath),NumRows,ColNames);
 	}
 	
-	private void parse(File f,int NumRows) throws FileNotFoundException
+	private void parse(File f,int NumRows, String[] PassedNames) throws FileNotFoundException
 	{
 		//System.out.println(f.getAbsolutePath());
 		Scanner Scan = new Scanner(f);
-		ColumnNames = parseRow(Scan.nextLine());
+		ColumnNames = parseRow(Scan.nextLine(),false,null);
+		ArrayList<Boolean> Consume = new ArrayList<Boolean>();
+		if(PassedNames == null)
+		{
+			for(int i = 0; i < ColumnNames.size();i++)
+				Consume.add(Boolean.TRUE);
+		}
+		else
+		{	
+			for(int i = 0; i < ColumnNames.size();i++)
+				Consume.add(Boolean.FALSE);
+			
+			Comparator<String> c = new Comparator<String>() {
+				@Override
+				public int compare(String a, String b)
+				{
+					return a.compareTo(b);
+				}
+			};
+			
+OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
+			{
+				for(int j = 0;j < ColumnNames.size();j++)
+				{
+					if(PassedNames[i].equals(ColumnNames.get(j)))
+					{
+						Consume.set(j, Boolean.TRUE);
+						continue OuterLoop;
+					}
+				}
+				Scan.close();
+				throw new IllegalStateException("Column name not found: "+PassedNames[i]);
+			}
+			ArrayList<String> NewCnames = new ArrayList<String>();
+			for(int i = 0;i < ColumnNames.size();i++)
+			{
+				if(Consume.get(i))
+					NewCnames.add(ColumnNames.get(i));
+			}
+			ColumnNames = NewCnames;
+		}
+
 		for(String s: ColumnNames)
 		{
-			//System.out.println(s);
 			Data.put(s, new ArrayList<String>());
 		}
+		
 		while(Scan.hasNextLine() && rowCount() != NumRows)
 		{
-			ArrayList<String> RowData = parseRow(Scan.nextLine());
+			ArrayList<String> RowData = parseRow(Scan.nextLine(),Consume);
 			for(int i = 0;i < ColumnNames.size();i++)
 			{
 				try
 				{
 					Data.get(ColumnNames.get(i)).add(RowData.get(i));
+					//Thread.sleep(1000);
 				}
 				catch (Exception e)
 				{
 					System.out.println(RowData.get(i));
-					Scan.close();
-					throw e;
+					System.exit(-1);
+					//Scan.close();
+					//throw e;
 				}
+				//System.out.println(Data.get(ColumnNames.get(i)));
+				//
 			}
+			///*
+			if((rowCount() % 25000) == 0)
+				System.out.println(String.format("%8s",rowCount()) +" rows parsed of CSV["+f.getName()+"].");
+			//*/
 		}
 		Scan.close();
 	}
 	
-	private ArrayList<String> parseRow(String Row)
+	private ArrayList<String> parseRow(String Row,ArrayList<Boolean> Consume)
 	{
+		return parseRow(Row,true,Consume);
+	}
+	
+	private ArrayList<String> parseRow(String Row,boolean allowDupes,ArrayList<Boolean> Consume)
+	{
+		
 		String StartRow = Row;
 		boolean SkipFirstEmpty = Row.charAt(0) == '\"';
 		Pattern P = Pattern.compile("(^|,)\"[^\"]*\"(?=(,|$))");
@@ -87,8 +143,51 @@ public class CSV
 			else
 				break;
 		//*/
+		if(!allowDupes)
+		{
+			ArrayList<String> A = new ArrayList<String>(NewList);
+			A.sort(new Comparator<String>() {
+				@Override
+				public int compare(String A, String B)
+				{
+					return A.compareTo(B);
+				}
+			});
+			/*
+			System.out.println(A.size());
+			for(int i = 0;i < NewList.size();i++)
+				System.out.println(NewList.get(i));
+				*/
+			for(int i = 0;i < A.size()-1;i++)
+			{
+				if(A.get(i).equals(A.get(i+1)))
+					throw new IllegalStateException("Duplicate entry \""+A.get(i)+"\" found.");
+			}
+		}
+		if(Consume != null)
+		{
+			ArrayList<String> ActualNewList = new ArrayList<String>();
+			for(int i = 0;i < Consume.size();i++)
+			{
+				if(Consume.get(i))
+					ActualNewList.add(NewList.get(i));
+			}
+			NewList = ActualNewList;
+		}
+
 		if(ColumnNames != null && ColumnNames.size() != NewList.size())
 			throw new IllegalStateException("CSV row "+(rowCount()+1)+" is of length "+NewList.size()+" (!= "+ColumnNames.size()+") :\n"+StartRow);
+		
+		//To conserve memory, Identical strings' references will be reused
+		for(int i = 0;i < NewList.size();i++)
+		{
+			String test = NewList.get(i);
+			if(StringHolder.containsKey(test))
+				NewList.set(i, StringHolder.get(test));
+			else
+				StringHolder.put(test, test);
+		}
+		//System.out.println(NewList);
 		return NewList;
 	}
 	
@@ -100,7 +199,7 @@ public class CSV
 	 */
 	public static CSV open(String filepath) throws FileNotFoundException
 	{
-		return new CSV(filepath,-1);
+		return new CSV(filepath,-1,null);
 	}
 	
 	/**
@@ -112,7 +211,19 @@ public class CSV
 	 */
 	public static CSV openRows(int n, String filepath) throws FileNotFoundException
 	{
-		return new CSV(filepath,n);
+		return new CSV(filepath,n,null);
+	}
+	
+	/**
+	 * Creates a CSV object that contains only the specified columns in the CSV.
+	 * @param ColNames An array of Column Names
+	 * @param filepath The path of the CSV to open. All rows will be opened if null is passed.
+	 * @return A CSV object with the parsed data
+	 * @throws FileNotFoundException when there is no file at the specified path
+	 * @throws IllegalStateException if a column name specified is not found
+	 */
+	public static CSV openColumns(String filepath, String[] ColNames) throws FileNotFoundException {
+		return new CSV(filepath,-1,ColNames);
 	}
 	
 	/**
@@ -231,6 +342,7 @@ public class CSV
 	 */
 	public void printToStream(PrintStream out,int[] ColSizes,int StartIndex,int EndIndex)
 	{
+		
 		//if(1 == 1)
 		//	throw new IllegalArgumentException();
 		if(EndIndex != -1 && StartIndex > EndIndex)

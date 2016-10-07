@@ -1,5 +1,6 @@
 package implementation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,20 +18,24 @@ public abstract class Prerequisite{
 	 */
 	public static Prerequisite Build(String p)
 	{
-		HashMap<String,Prerequisite> Memories = null;
+		return BuildIn(p,new ArrayList<Prerequisite>());
+	}
+	
+	private static Prerequisite BuildIn(String p,ArrayList<Prerequisite> Memories)
+	{
+		//System.out.printf("%-32s:%s%n",p,Memories.toString());
 		Matcher m = Pattern.compile("\\((.*?)\\)").matcher(p);
-		if(m.matches())
+		if(m.find())
 		{
-			m.reset();
-			Memories = new HashMap<String,Prerequisite>();
 			String NewP = p;
-			int count = 0;
-			while(m.find())
+			do
 			{
-				String Mem ="%"+(count++);
-				NewP = NewP.replaceFirst("\\("+m.group(1)+"\\)",Mem);
-				Memories.put(Mem, Build(m.group(1)));
+				String Mem ="%"+Memories.size();
+				NewP = NewP.replaceFirst("\\("+Pattern.quote(m.group(1))+"\\)",Mem);
+				Memories.add(BuildIn(m.group(1),Memories));
+				//System.out.println(Memories);
 			}
+			while(m.find());
 			p = NewP;
 		}
 		String[] data = p.split(" or ");
@@ -42,29 +47,35 @@ public abstract class Prerequisite{
 		}
 		if(data.length == 1)
 		{// Not compound
-			if(Memories != null && Memories.containsKey("%0"))
-				return Memories.get("%0");
-			else
+			if(p.charAt(0) == '%')
 			{
-				if(p.contains(" "))
-				{
-					data = p.split(" ");
-					return new TestScorePrerequisite(p.substring(0, p.length()-data[data.length-1].length()-1),Integer.parseInt(data[data.length-1]));
-				}
-				else
-					return new CoursePrerequisite(p,'C');
+				return Memories.get(Integer.parseInt(p.substring(1)));
 			}
+			else if(p.contains(" "))
+			{
+				data = p.split(" ");
+				return new TestScorePrerequisite(p.substring(0, p.length()-data[data.length-1].length()-1),Integer.parseInt(data[data.length-1]));
+			}
+			else
+				return new CoursePrerequisite(p,'C');
 		}
 		else
 		{//compound
-			Prerequisite A = (data[0].charAt(0) == '%')? Memories.get(data[0]):Build(data[0]);
-			Prerequisite B = (data[1].charAt(0) == '%')? Memories.get(data[1]):Build(data[1]);
-			CompoundPrerequisite P = new CompoundPrerequisite(A,B,or);
+			ArrayList<Prerequisite> SubPrereqs = new ArrayList<Prerequisite>();
+			for(String s : data)
+			{
+				SubPrereqs.add(BuildIn(s,Memories));
+			}
+			return new CompoundPrerequisite(SubPrereqs,or);
+			/*
+			CompoundPrerequisite P = new CompoundPrerequisite(BuildIn(data[0],Memories),BuildIn(data[1],Memories),or);
 			for(int i = 2;i < data.length;i++)
 			{
-				P = new CompoundPrerequisite(P,(data[i].charAt(0) == '%')? Memories.get(data[i]):Build(data[i]),or);
+				P = new CompoundPrerequisite(P,BuildIn(data[i],Memories),or);
 			}
 			return P;
+			*/
+			
 		}
 		//return null;
 	}

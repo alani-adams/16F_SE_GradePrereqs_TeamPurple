@@ -6,6 +6,8 @@
 package implementation;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A class that contains the main method that allows this program
@@ -16,18 +18,23 @@ import java.io.FileNotFoundException;
 public class GradePrerequisites
 {
 	public CSV StudentData;
+	private HashMap<String,Student> Students;
+	
 	
 	public GradePrerequisites()
 	{
 		init();
+		Students = new HashMap<String,Student>();
 	}
 	
 	public void init()
 	{
 		try
 		{
-			StudentData = CSV.open("StudentData.csv");
-			
+			//StudentData = CSV.open("StudentData.csv");
+			//StudentData = CSV.open("cs374_anon.csv");
+			//StudentData = CSV.open("cs374_anon-modified.csv");
+			StudentData = CSV.openColumns("cs374_anon-modified.csv",new String[]{"CRN","Grade Code","Banner ID"});
 			{
 				CSV CourseData = CSV.open("CourseData.csv");
 				for(int i = 0;i < CourseData.rowCount();i++)
@@ -63,6 +70,11 @@ public class GradePrerequisites
 			System.out.println("This program requires exactly two things to run: A BannerID and a CRN.");
 		//*/
 		GradePrerequisites G = new GradePrerequisites();
+
+		//Matcher m = Pattern.compile("\\((.*?)\\)").matcher("(ACT Science 20 or SAT 950) and BIOL101");
+		
+		//System.out.println(m.find());
+		//Course.RegisterCourse("BIOL261","NUTR221 and NUTR322 and (CHEM112 and CHEM114) or (CHEM132 and CHEM134)");
 		
 	}
 	
@@ -76,16 +88,22 @@ public class GradePrerequisites
 	
 	public Student Student(String banner)
 	{
-		Student S = new Student(banner);
-		for(int i = 0;i < StudentData.rowCount();i++)
+		if(Students.containsKey(banner))
+			return Students.get(banner);
+		else
 		{
-			if(StudentData.getDataPoint("Banner ID", i).equals(banner))
+			Student S = new Student(banner);
+			for(int i = 0;i < StudentData.rowCount();i++)
 			{
-				String G = StudentData.getDataPoint("Grade Code", i);
-				String CRN = StudentData.getDataPoint("CRN", i);
-				S.TakeCourse(Course.GetFromCRN(CRN, G.length()==0? null :(G.charAt(0)) ));
+				if(StudentData.getDataPoint("Banner ID", i).equals(banner))
+				{
+					String G = StudentData.getDataPoint("Grade Code", i);
+					String CRN = StudentData.getDataPoint("CRN", i);
+					S.TakeCourse(Course.GetFromCRN(CRN, G.length()==0? null :(G.charAt(0)) ));
+				}
 			}
+			Students.put(banner, S);
+			return S;
 		}
-		return S;
 	}
 }

@@ -1,40 +1,49 @@
 package implementation;
 
+import java.util.ArrayList;
+
 /**
- * Defines a prerequisite defined by two other prerequisites
+ * Defines a prerequisite defined by a list of other prerequisites
  * @author Sebastian Snyder
  */
 public class CompoundPrerequisite extends Prerequisite
 {
 	private boolean isOr;
-	Prerequisite first;
-	Prerequisite second;
+	ArrayList<Prerequisite> Conditions;
 	
 	/**
-	 * Creates a CompoundPrerequisite that must meet one or both
-	 * prerequisites.
-	 * @param a The first prerequisite
-	 * @param b The second prerequisite
-	 * @param or Whether or not this prerequisite is met if only one of a and b are met.
-	 * If false is passed in, both must be met.
+	 * Creates a CompoundPrerequisite that must meet one or all of its subprerequisites
+	 * @param Prereq The list of subprerequisites that constitute this prerequisite.
+	 * @param or Whether or not this prerequisite is met if only one subprerequisite is met.
+	 * If false is passed in, all must be met.
 	 */
-	public CompoundPrerequisite(Prerequisite a, Prerequisite b, boolean or)
+	public CompoundPrerequisite(ArrayList<Prerequisite> Prereqs, boolean or)
 	{
 		isOr = or;
-		first = a;
-		second = b;
+		Conditions = Prereqs;
 	}
 
 	@Override
 	public boolean IsMetBy(Student stu)
 	{
-		return isOr?( first.IsMetBy(stu) || second.IsMetBy(stu) ):( first.IsMetBy(stu) && first.IsMetBy(stu) ); 
+		for(Prerequisite p : Conditions)
+		{
+			if((!isOr) ^ p.IsMetBy(stu))
+				return isOr;
+		}
+		return !isOr;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "[" + first + (isOr?" or ":" and ") + second + "]";
+		String s = "["+Conditions.get(0);
+		for(int i = 1;i < Conditions.size();i++)
+		{
+			s += isOr ? " or " : " and ";
+			s += Conditions.get(i);
+		}
+		return s+"]";
 	}
 
 }

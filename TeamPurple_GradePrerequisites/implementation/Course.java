@@ -134,13 +134,10 @@ public final class Course
 	
 	/**
 	 * Gets the grade made this course.
-	 * @returns Grade 
-	 * @throws NullPointerException if grade has not been set
+	 * @returns Grade or null if not set
 	 */
-	public char GetGrade()
+	public Character GetGrade()
 	{
-		if(Grade == null)
-			throw new NullPointerException();
 		return Grade;
 	}
 	
@@ -166,6 +163,8 @@ public final class Course
 	public String toString()
 	{
 		String s = "{"+Data.getCode();
+		if(GetGrade() != null)
+			s+="("+GetGrade()+")";
 		for(Prerequisite p: Data.GetPrerequisites())
 			s+=";"+p;
 		return s+"}";
