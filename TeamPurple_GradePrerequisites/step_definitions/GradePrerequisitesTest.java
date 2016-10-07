@@ -92,11 +92,19 @@ public class GradePrerequisitesTest
 	@Given("^A student with BannerID \"(.*?)\"$")
 	public void banner_and_CRN(String arg1) throws Throwable {
 	    TestStudent = G.Student(arg1);
+	    /*
+	    for(Course c: TestStudent.GetTakenCourses())
+	    {
+	    	System.out.println(arg1+":"+c);
+	    }
+	    //*/
 	}
 	@Then("^the student \"(.*?)\" allowed to be enrolled in \"(.*?)\"$")
 	public void the_student_allowed_to_be_enrolled_in_the_course(String arg1, String arg2) throws Throwable {
+		Course TestCourse = Course.GetFromCRN(arg2);
 	    boolean disallowed = arg1.equals("is not");
-	    boolean testallowed = TestStudent.CanTakeCourse(Course.GetFromCRN(arg2));
+	    boolean testallowed = TestStudent.CanTakeCourse(TestCourse);
+	    //System.out.println(TestStudent.GetBanner()+" ATTEMPTING "+TestCourse);
 	    Assert.assertTrue(disallowed ^ testallowed);
 		//G.StudentData.printToStream(System.out,0,5);
 	}
