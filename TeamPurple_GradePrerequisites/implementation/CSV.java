@@ -17,13 +17,13 @@ public class CSV
 	private ArrayList<String> ColumnNames;
 	private static HashMap<String,String> StringHolder = new HashMap<String,String>();
 	
-	private CSV(String filepath,int NumRows,String[] ColNames) throws FileNotFoundException
+	private CSV(String filepath,int NumRows,String[] ColNames,String... Conditions) throws FileNotFoundException
 	{
 		Data = new HashMap<String,ArrayList<String>>();
-		parse(new File(filepath),NumRows,ColNames);
+		parse(new File(filepath),NumRows,ColNames,Conditions);
 	}
 	
-	private void parse(File f,int NumRows, String[] PassedNames) throws FileNotFoundException
+	private void parse(File f,int NumRows, String[] PassedNames,String... Conditions) throws FileNotFoundException
 	{
 		//System.out.println(f.getAbsolutePath());
 		Scanner Scan = new Scanner(f);
@@ -38,14 +38,6 @@ public class CSV
 		{	
 			for(int i = 0; i < ColumnNames.size();i++)
 				Consume.add(Boolean.FALSE);
-			
-			Comparator<String> c = new Comparator<String>() {
-				@Override
-				public int compare(String a, String b)
-				{
-					return a.compareTo(b);
-				}
-			};
 			
 OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 			{
@@ -73,10 +65,43 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 		{
 			Data.put(s, new ArrayList<String>());
 		}
-		
+
+		String[] ConditionAt = new String[ColumnNames.size()];
+		for(int c = 0;c < Conditions.length;c++)
+		for(int i = 0;i < ColumnNames.size();i++)
+		{
+			String[] Req = Conditions[c].split("=");
+			if(Req.length != 2)
+			{
+				Scan.close();
+				throw new IllegalStateException("Malformed Requirement: "+Conditions[c]);
+			}
+			if(Req[0].equals(ColumnNames.get(i)))
+			{
+				if(ConditionAt[i] == null)
+					ConditionAt[i] = Req[1];
+				else
+				{
+					Scan.close();
+					throw new IllegalStateException("Duplicate Requirement Field "+Req[0]+":"+ConditionAt[i]+" and "+Req[1]);
+				}
+			}
+		}
+		OuterLoop:
 		while(Scan.hasNextLine() && rowCount() != NumRows)
 		{
 			ArrayList<String> RowData = parseRow(Scan.nextLine(),Consume);
+			//*
+			for(int i = 0;i < ConditionAt.length;i++)
+			{
+				if(ConditionAt[i] != null)
+				{
+					//System.out.println(ColumnNames.get(i)+":"+RowData.get(i)+"?="+ConditionAt[i]);
+					if(!RowData.get(i).equals(ConditionAt[i]))
+						continue OuterLoop;
+				}
+			}
+			//*/
 			for(int i = 0;i < ColumnNames.size();i++)
 			{
 				try
@@ -92,7 +117,8 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 					//throw e;
 				}
 				//System.out.println(Data.get(ColumnNames.get(i)));
-				//
+				//if(RowData.size() > 2 && RowData.get(2).equals("3093"))
+				//	System.out.println(Arrays.asList(Conditions)+" -> "+RowData);
 			}
 			///*
 			if((rowCount() % 25000) == 0)
@@ -201,6 +227,17 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 	{
 		return new CSV(filepath,-1,null);
 	}
+
+	/**
+	 * Creates a CSV object that contains all of the rows in the CSV.
+	 * @param filepath The path of the CSV to open
+	 * @return A CSV object with the parsed data
+	 * @throws FileNotFoundException when there is no file at the specified path
+	 */
+	public static CSV openWithConditions(String filepath,String... Conditions) throws FileNotFoundException
+	{
+		return new CSV(filepath,-1,null,Conditions);
+	}
 	
 	/**
 	 * Creates a CSV object that contains the number of specified rows in the CSV.
@@ -226,6 +263,17 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 		return new CSV(filepath,-1,ColNames);
 	}
 	
+	/**
+	 * Creates a CSV object that contains only the specified columns in the CSV.
+	 * @param ColNames An array of Column Names
+	 * @param filepath The path of the CSV to open. All rows will be opened if null is passed.
+	 * @return A CSV object with the parsed data
+	 * @throws FileNotFoundException when there is no file at the specified path
+	 * @throws IllegalStateException if a column name specified is not found
+	 */
+	public static CSV openColumnsWithConditions(String filepath, String[] ColNames,String... Conditions) throws FileNotFoundException {
+		return new CSV(filepath,-1,ColNames,Conditions);
+	}
 	/**
 	 * Gets the String at the specified row number and column header.
 	 * @param colName The column name of the desired data

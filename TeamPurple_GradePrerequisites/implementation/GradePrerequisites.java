@@ -19,22 +19,34 @@ public class GradePrerequisites
 {
 	public CSV StudentData;
 	private HashMap<String,Student> Students;
-	
+	private String MyBan;
 	
 	public GradePrerequisites()
 	{
-		init();
+		this(null);
+	}
+	
+	public GradePrerequisites(String Banner)
+	{
+		MyBan = Banner;
+		init(Banner);
 		Students = new HashMap<String,Student>();
 	}
 	
-	public void init()
+	public void init(String Banner)
 	{
 		try
 		{
 			//StudentData = CSV.open("StudentData.csv");
 			//StudentData = CSV.open("cs374_anon.csv");
 			//StudentData = CSV.open("cs374_anon-modified.csv");
-			StudentData = CSV.openColumns("cs374_anon-modified.csv",new String[]{"CRN","Grade Code","Banner ID"});
+			String[] ColumnNames = {"CRN", "Grade Code", "Banner ID"};
+			if(Banner == null)
+				StudentData = CSV.openColumns("cs374_anon-modified.csv",ColumnNames);
+			else
+				StudentData = CSV.openColumnsWithConditions("cs374_anon-modified.csv",ColumnNames,"Banner ID="+Banner);
+				
+			//Set Scoping Level	
 			{
 				CSV CourseData = CSV.open("CourseData.csv");
 				for(int i = 0;i < CourseData.rowCount();i++)
@@ -46,7 +58,7 @@ public class GradePrerequisites
 				}
 				//CourseData.printToStream(System.out);
 			}
-			
+			//Set Scoping Level
 			{
 				CSV CRNData = CSV.open("CRNData.csv");
 				for(int i = 0;i < CRNData.rowCount();i++)
@@ -63,13 +75,13 @@ public class GradePrerequisites
 	}
 	public static void main(String[] args)
 	{
-		/*
+		//*
 		if(args.length == 2)
-			System.out.println(new GradePrerequisites().run(args[0],args[1]));
+			System.out.println("Prerequisites "+(new GradePrerequisites(args[0]).run(args[1])?"are":"not")+" met by student " +args[0]+" for course "+args[1]);
 		else
 			System.out.println("This program requires exactly two things to run: A BannerID and a CRN.");
 		//*/
-		GradePrerequisites G = new GradePrerequisites();
+		//GradePrerequisites G = new GradePrerequisites();
 
 		//Matcher m = Pattern.compile("\\((.*?)\\)").matcher("(ACT Science 20 or SAT 950) and BIOL101");
 		
@@ -78,11 +90,11 @@ public class GradePrerequisites
 		
 	}
 	
-	public boolean run(String banner,String crn)
+	public boolean run(String crn)
 	{
 		//CourseData.printToStream(System.out,0,50);
 		
-		Student S = Student(banner);
+		Student S = Student(MyBan);
 		return S.CanTakeCourse(Course.GetFromCRN(crn));
 	}
 	
