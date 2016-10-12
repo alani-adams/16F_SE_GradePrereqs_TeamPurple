@@ -40,7 +40,7 @@ Scenario Outline: Student Take Course
 
     Examples: Grade Prerequisites
     | banner    | courseCode | allowed  |
-    | 206198    | PSYC351    | is       |
+    | 206198    | PSYC351    | is not   |
     | 255771    | BIOL222    | is not   |
     | 255771    | BIOL351    | is not   |
     | 173956    | CHEM134    | is not   |
