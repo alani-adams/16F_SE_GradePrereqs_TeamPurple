@@ -29,7 +29,7 @@ Scenario Outline: Student Take Course
     | 6502      | MATH124    | is       |
     | 6502      | CORE115    | is       |
     | 9198      | MATW20     | is       |
-    | 9198      | MKTG342    | is       |
+    | 9198      | MKTG342    | is not   |
     
     Examples: Classification Prerequisites
     | banner    | courseCode | allowed  |
