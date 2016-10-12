@@ -31,11 +31,30 @@ Scenario Outline: Student Take Course
     | 9198      | MATW20     | is       |
     | 9198      | MKTG342    | is not   |
     
-    Examples: Classification Prerequisites
+     Examples: Classification Prerequisites
     | banner    | courseCode | allowed  |
     | 438032    | COMP485    | is       |
     | 443188    | COMP485    | is not   |
     | 438032    | COMP330    | is       |
     | 463387    | COMP330    | is not   |
     | 472854    | COMP330    | is       |
+
+    Examples: Grade Prerequisites
+    | banner    | courseCode | allowed  |
+    | 206198    | PSYC351    | is       |
+    | 255771    | BIOL222    | is not   |
+    | 255771    | BIOL351    | is not   |
+    | 173956    | CHEM134    | is not   |
+    | 173956    | CHEM131    | is not   |
+    | 173956    | BIOL351    | is not   |
+
+    Examples: Compound Prerequites
+    | banner    | courseCode | allowed  |
+    | 471637    | ANSC343    | is not   |
+    | 173956    | BIOL312    | is not   |
+
+    Examples: Enroll in a class already taken
+    | banner    | courseCode | allowed  |
+    | 54870     | BIBL211    | is       |
+    | 723355    | PSYC690    | is       |
     
