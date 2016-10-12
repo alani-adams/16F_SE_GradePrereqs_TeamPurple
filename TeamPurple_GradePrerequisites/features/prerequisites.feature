@@ -3,25 +3,32 @@ Feature: Test Feature
 
 Scenario Outline: Student Take Course
 	Given A student with BannerID "<banner>"
-	Then the student "<allowed>" allowed to be enrolled in "<crn>"
+	Then the student "<allowed>" allowed to be enrolled in "<courseCode>"
 
     Examples: CSV file
-    | banner    | crn       | allowed  |
-    | 51        | 15000     | is       |
-    | 3093      | 15013     | is not   |
-    | 3093      | 14296     | is       |
-    | 734       | 14105     | is not   |
-    | 734       | 15412     | is       |
-    | 835       | 14166     | is       |
-    | 835       | 14202     | is       |
-    | 333175    | 30322     | is not   |
-    | 333175    | 21411     | is       |
-    | 480764    | 14130     | is       |
-    | 480764    | 20534     | is not   |
-    | 480764    | 30238     | is not   |
-    | 837148    | 14976     | is       |
-    | 837982    | 14787     | is       |
-    | 837982    | 14911     | is       |
+    | banner    | courseCode | allowed  |
+    | 51        | BIBL101    | is       |
+    | 3093      | MPIN411    | is       |
+    | 734       | BIOL113    | is not   |
+    | 734       | PEAC340    | is       |
+    | 835       | PEAC100    | is       |
+    | 835       | ACCT311    | is not   |
+    | 333175    | BIOL471    | is not   |
+    | 333175    | BIOL340    | is       |
+    | 480764    | BIOL354    | is       |
+    | 480764    | PSYC370    | is not   |
+    | 837148    | BIBL101    | is       |
+    | 837982    | CORE110    | is       |
+    
+    | 59039     | THEA425    | is not   |
+    | 59039     | PEAC234    | is       |
+    | 59039     | FREN112    | is       |
+    | 59039     | THEA137    | is       |
+    | 59039     | MPIM221    | is       |
+    | 59039     | COMS345    | is       |
+
+
+
 
 
 
