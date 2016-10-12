@@ -37,6 +37,9 @@
  >     
  > **SAT Score Prerequisite**  
  >     A minimum SAT score prerequisite, either overall or a specific section.
+ >
+ > **Classification Prerequisite**  
+ >     A minimum Student classification prerequisite, either single or compound (logical or).
     
 **Student**  
     An entity that has a Banner ID and an optional set of taken courses.
