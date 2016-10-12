@@ -30,7 +30,8 @@ public class CoursePrerequisite extends Prerequisite{
         {
             if(courseCode.equals(c.GetCourseCode()))
             {
-                if((char)(c.GetGrade()) <= minGrade)
+            	Character G = c.GetGrade();
+                if(G != null && (char)(G) <= minGrade)
                 {
                     return true;
                 }
