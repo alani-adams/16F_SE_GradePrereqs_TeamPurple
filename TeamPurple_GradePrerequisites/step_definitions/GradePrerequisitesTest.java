@@ -18,6 +18,7 @@ public class GradePrerequisitesTest
 	@Before
 	public void Before()
 	{
+		CSV.DEBUG_MODE = true;
 		if(G == null)
 		{
 			G = new GradePrerequisites();
@@ -88,12 +89,12 @@ public class GradePrerequisitesTest
 	@Given("^A student with BannerID \"(.*?)\"$")
 	public void banner_and_CRN(String arg1) throws Throwable {
 	    TestStudent = G.Student(arg1);
-	    System.out.println(TestStudent.GetClassification());
+	    //System.out.println(TestStudent.GetClassification());
 	}
 	@Then("^the student \"(.*?)\" allowed to be enrolled in \"(.*?)\"$")
 	public void the_student_allowed_to_be_enrolled_in_the_course(String arg1, String arg2) throws Throwable {
 		Course TestCourse = Course.GetFromCode(arg2);
-		System.out.println(TestCourse);
+		//System.out.println(TestCourse);
 	    boolean disallowed = arg1.equals("is not");
 	    boolean testallowed = TestStudent.CanTakeCourse(TestCourse);
 	    Assert.assertTrue(disallowed ^ testallowed);
