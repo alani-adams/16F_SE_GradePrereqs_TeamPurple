@@ -28,12 +28,12 @@ Scenario Outline: Student Take Course
     | 59039     | COMS345    | is       |
     
     Examples: Classification Prerequisites
-    | banner    | crn       | allowed  |
-    | 438032    | COMP485   | is       |
-    | 443188    | COMP485   | is not   |
-    | 438032    | COMP330   | is       |
-    | 463387    | COMP330   | is not   |
-    | 472854    | COMP330   | is       |
+    | banner    | courseCode | allowed  |
+    | 438032    | COMP485    | is       |
+    | 443188    | COMP485    | is not   |
+    | 438032    | COMP330    | is       |
+    | 463387    | COMP330    | is not   |
+    | 472854    | COMP330    | is       |
 
 
 
