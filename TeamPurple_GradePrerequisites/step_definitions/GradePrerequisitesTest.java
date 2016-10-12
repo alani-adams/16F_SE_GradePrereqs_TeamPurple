@@ -3,12 +3,8 @@ package step_definitions;
 import implementation.*;
 
 import cucumber.api.java.en.*;
-import cucumber.api.PendingException;
+//import cucumber.api.PendingException;
 import cucumber.api.java.Before;
-
-import static org.junit.Assert.*;
-
-import java.util.HashMap;
 
 import org.junit.Assert;
 /**
@@ -92,10 +88,12 @@ public class GradePrerequisitesTest
 	@Given("^A student with BannerID \"(.*?)\"$")
 	public void banner_and_CRN(String arg1) throws Throwable {
 	    TestStudent = G.Student(arg1);
+	    System.out.println(TestStudent.GetClassification());
 	}
 	@Then("^the student \"(.*?)\" allowed to be enrolled in \"(.*?)\"$")
 	public void the_student_allowed_to_be_enrolled_in_the_course(String arg1, String arg2) throws Throwable {
 		Course TestCourse = Course.GetFromCode(arg2);
+		System.out.println(TestCourse);
 	    boolean disallowed = arg1.equals("is not");
 	    boolean testallowed = TestStudent.CanTakeCourse(TestCourse);
 	    Assert.assertTrue(disallowed ^ testallowed);
