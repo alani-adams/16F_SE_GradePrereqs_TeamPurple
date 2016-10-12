@@ -26,6 +26,10 @@ Scenario Outline: Student Take Course
     | 59039     | THEA137    | is       |
     | 59039     | MPIM221    | is       |
     | 59039     | COMS345    | is       |
+    | 6502      | MATH124    | is       |
+    | 6502      | CORE115    | is       |
+    | 9198      | MATW20     | is       |
+    | 9198      | MKTG342    | is       |
     
     Examples: Classification Prerequisites
     | banner    | courseCode | allowed  |
@@ -34,10 +38,4 @@ Scenario Outline: Student Take Course
     | 438032    | COMP330    | is       |
     | 463387    | COMP330    | is not   |
     | 472854    | COMP330    | is       |
-
-
-
-
-
-
-
+    
