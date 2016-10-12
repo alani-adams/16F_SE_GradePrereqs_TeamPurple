@@ -135,7 +135,67 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 	
 	private ArrayList<String> parseRow(String Row,boolean allowDupes,ArrayList<Boolean> Consume)
 	{
+		ArrayList<String> ToRet = new ArrayList<String>();
+		int ColIndex = 0;
+		int StartIndex = 0;
+		for(int i = 0 ;i < Row.length();i++)
+		{
+			//System.out.println("<"+Row.substring(i));
+			if(StartIndex == i && Row.charAt(i) == '"')
+			{
+				for(i++;i <= Row.length();i++)
+				{
+					//System.out.println("\"<"+Row.substring(i));
+					if(Row.charAt(i) == '"' && (i+1 == Row.length() || Row.charAt(i+1) == ','))
+					{
+						if(Consume == null || Consume.get(ColIndex++))
+							ToRet.add(Row.substring(StartIndex+1, i));
+						StartIndex = ++i + 1;
+						
+						break;
+					}
+				}
+				continue;
+			}
+			if(Row.charAt(i) == ',')
+			{
+				//System.out.print((StartIndex)+"-"+(i)+" ");
+				if(Consume == null || Consume.get(ColIndex++))
+					ToRet.add(Row.substring(StartIndex, i));
+				//System.out.println(ToRet.get(ToRet.size()-1));
+				StartIndex = i+1;
+			}
+			if(i+1 == Row.length())
+			{
+				//System.out.print((StartIndex)+"-"+(i+1)+" ");
+				if(Consume == null || Consume.get(ColIndex++))
+					ToRet.add(Row.substring(StartIndex, i+1));
+				//System.out.println(ToRet.get(ToRet.size()-1));
+			}
+		}
 		
+		
+		
+		//To conserve memory, Identical strings' references will be reused
+		//*
+		for(int i = 0;i < ToRet.size();i++)
+		{
+			String test = ToRet.get(i);
+			if(StringHolder.containsKey(test))
+				ToRet.set(i, StringHolder.get(test));
+			else
+				StringHolder.put(test, test);
+		}
+		//*/
+		/*
+		if(Math.random() < .0002)
+		{
+			//System.out.println(ColumnNames);
+			System.out.println(ToRet);
+		}
+		*/
+		return ToRet;
+		/*
 		String StartRow = Row;
 		boolean SkipFirstEmpty = Row.charAt(0) == '\"';
 		Pattern P = Pattern.compile("(^|,)\"[^\"]*\"(?=(,|$))");
@@ -168,7 +228,6 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 				NewList.add("");
 			else
 				break;
-		//*/
 		if(!allowDupes)
 		{
 			ArrayList<String> A = new ArrayList<String>(NewList);
@@ -183,7 +242,6 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 			System.out.println(A.size());
 			for(int i = 0;i < NewList.size();i++)
 				System.out.println(NewList.get(i));
-				*/
 			for(int i = 0;i < A.size()-1;i++)
 			{
 				if(A.get(i).equals(A.get(i+1)))
@@ -215,6 +273,7 @@ OuterLoop:	for(int i = 0;i < PassedNames.length;i++)
 		}
 		//System.out.println(NewList);
 		return NewList;
+		*/
 	}
 	
 	/**
