@@ -18,6 +18,7 @@ public class CSV
 	
 	private static final boolean CONSERVE_MEMORY_MODE = false;
 	private static HashMap<String,String> StringHolder = CONSERVE_MEMORY_MODE?new HashMap<String,String>():null;
+	public static boolean DEBUG_MODE = false;
 	
 	private CSV(String filepath,int NumRows,String[] ColNames) throws IOException
 	{
@@ -84,7 +85,7 @@ public class CSV
 					Data.get(ColumnNames.get(i)).add(RowData.get(i));
 				}
 				///*
-				if((rowCount() % 25000) == 0)
+				if(DEBUG_MODE && (rowCount() % 25000) == 0)
 					System.out.println(String.format("%8s",rowCount()) +" rows parsed of CSV["+f.getName()+"].");
 				//*/
 			}

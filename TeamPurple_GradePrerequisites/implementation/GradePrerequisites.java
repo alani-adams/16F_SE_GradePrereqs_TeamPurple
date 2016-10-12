@@ -68,7 +68,7 @@ public class GradePrerequisites
 	}
 	public static void main(String[] args)
 	{
-		/*
+		//*
 		if(args.length == 2)
 			System.out.println("Prerequisites "+(new GradePrerequisites(args[0]).run(args[1])?"are":"not")+" met by student " +args[0]+" for course "+args[1]);
 		else
