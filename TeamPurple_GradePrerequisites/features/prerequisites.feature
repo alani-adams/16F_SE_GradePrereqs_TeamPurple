@@ -37,7 +37,6 @@ Scenario Outline: Student Take Course
     | 443188    | COMP485    | is not   |
     | 438032    | COMP330    | is       |
     | 463387    | COMP330    | is not   |
-    | 472854    | COMP330    | is       |
 
     Examples: Grade Prerequisites
     | banner    | courseCode | allowed  |
