@@ -15,7 +15,8 @@ public class Student
 	private String Classification;
     //Maps TestType to TestScore
     private final HashMap<String,Integer> TestScores;
-    
+	public static final String[] ClStrings = {"FR","SO","JR","SR","GR"};
+	
 	/**
 	 * Creates a new student that has not taken any courses.
 	 * @param BannerID The student's BannerID
@@ -110,11 +111,10 @@ public class Student
      */
     public void SetClassification(String c)
     {
-    	Classification = c;
+    	for(String s:ClStrings)
+    		if(s.equals(c))
+    			Classification = s;
     }
-    
-
-	public static final String[] ClStrings = {"FR","SO","JR","SR","GR"};
 	
     /**
      * Sets the student's classification if the new classification is better

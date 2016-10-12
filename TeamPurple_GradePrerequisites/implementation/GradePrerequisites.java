@@ -68,19 +68,20 @@ public class GradePrerequisites
 	}
 	public static void main(String[] args)
 	{
-		//*
+		/*
 		if(args.length == 2)
 			System.out.println("Prerequisites "+(new GradePrerequisites(args[0]).run(args[1])?"are":"not")+" met by student " +args[0]+" for course "+args[1]);
 		else
 			System.out.println("This program requires exactly two things to run: A BannerID and a CRN.");
 		//*/
-		//GradePrerequisites G = new GradePrerequisites("837148");
-		//G.StudentData.printToStream(System.out,0,50);
-		//Matcher m = Pattern.compile("\\((.*?)\\)").matcher("(ACT Science 20 or SAT 950) and BIOL101");
-		
-		//System.out.println(m.find());
-		//Course.RegisterCourse("BIOL261","NUTR221 and NUTR322 and (CHEM112 and CHEM114) or (CHEM132 and CHEM134)");
-		
+		/*
+		GradePrerequisites G = new GradePrerequisites("438032");
+		Student S = G.Student("438032");
+		Course C = Course.GetFromCode("COMP485");
+		System.out.println(S.GetClassification());
+		System.out.println(C);
+		System.out.println(S.CanTakeCourse(C));
+		*/
 	}
 	
 	public boolean run(String crn)
@@ -105,8 +106,8 @@ public class GradePrerequisites
 					String G = StudentData.getDataPoint("Grade Code", i);
 					String CRN = StudentData.getDataPoint("CRN", i);
 					S.TakeCourse(Course.GetFromCRN(CRN, G.length()==0? null :(G.charAt(0)) ));
+					S.SetClassificationMax(StudentData.getDataPoint("Class Code", i));
 				}
-				S.SetClassificationMax(StudentData.getDataPoint("Class Code", i));
 			}
 			Students.put(banner, S);
 			return S;
