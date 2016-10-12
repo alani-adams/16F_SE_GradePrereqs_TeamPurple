@@ -6,6 +6,7 @@
 package implementation;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,26 +38,19 @@ public class GradePrerequisites
 	{
 		try
 		{
-			//StudentData = CSV.open("StudentData.csv");
-			//StudentData = CSV.open("cs374_anon.csv");
-			//StudentData = CSV.open("cs374_anon-modified.csv");
+			//CSV.openColumns("csv.csv",new String[] {"Column1"});
+			///*
 			String[] ColumnNames = {"CRN", "Grade Code", "Banner ID"};
-			if(Banner == null)
-				StudentData = CSV.openColumns("cs374_anon-modified.csv",ColumnNames);
-			else
-				StudentData = CSV.openColumnsWithConditions("cs374_anon-modified.csv",ColumnNames,"Banner ID="+Banner);
-				
-			//Set Scoping Level	
+			StudentData = CSV.openColumns("cs374_anon-modified.csv",ColumnNames);
+			//StudentData = CSV.open("cs374_anon-modified.csv");
 			{
 				CSV CourseData = CSV.open("CourseData.csv");
 				for(int i = 0;i < CourseData.rowCount();i++)
 				{
 					String CourseCode = CourseData.getDataPoint("Course Code",i);
 					String PrereqString = CourseData.getDataPoint("Prerequisites", i);
-					//System.out.println("{"+CourseCode+":"+PrereqString+"}");
 					Course.RegisterCourse(CourseCode,PrereqString.equals("")?null:PrereqString);
 				}
-				//CourseData.printToStream(System.out);
 			}
 			//Set Scoping Level
 			{
@@ -66,8 +60,9 @@ public class GradePrerequisites
 					Course.RegisterCRN(CRNData.getDataPoint("CRN",i),CRNData.getDataPoint("Course Code", i));
 				}
 			}
+			//*/
 		}
-		catch (FileNotFoundException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 			System.exit(-1);
@@ -81,8 +76,8 @@ public class GradePrerequisites
 		else
 			System.out.println("This program requires exactly two things to run: A BannerID and a CRN.");
 		//*/
-		//GradePrerequisites G = new GradePrerequisites();
-
+		//GradePrerequisites G = new GradePrerequisites("837148");
+		//G.StudentData.printToStream(System.out,0,50);
 		//Matcher m = Pattern.compile("\\((.*?)\\)").matcher("(ACT Science 20 or SAT 950) and BIOL101");
 		
 		//System.out.println(m.find());
