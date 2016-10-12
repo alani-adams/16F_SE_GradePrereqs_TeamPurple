@@ -72,7 +72,7 @@ public class GradePrerequisites
 		if(args.length == 2)
 			System.out.println("Prerequisites "+(new GradePrerequisites(args[0]).run(args[1])?"are":"not")+" met by student " +args[0]+" for course "+args[1]);
 		else
-			System.out.println("This program requires exactly two things to run: A BannerID and a CRN.");
+			System.out.println("This program requires exactly two things to run: A BannerID and a Course Code.");
 		//*/
 		/*
 		GradePrerequisites G = new GradePrerequisites("438032");
@@ -89,7 +89,7 @@ public class GradePrerequisites
 		//CourseData.printToStream(System.out,0,50);
 		
 		Student S = Student(MyBan);
-		return S.CanTakeCourse(Course.GetFromCRN(crn));
+		return S.CanTakeCourse(Course.GetFromCode(crn));
 	}
 	
 	public Student Student(String banner)
