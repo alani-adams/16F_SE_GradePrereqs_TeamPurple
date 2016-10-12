@@ -124,12 +124,12 @@ public class Student
     {
     	for(String s:ClStrings)
     	{
-    		if(Classification == s)
+    		if(Classification.equals(s))
     		{
     			Classification = c;
     			break;
     		}
-    		else if(c == s)
+    		else if(c.equals(s))
     			break;
     		
     	}

@@ -26,9 +26,9 @@ public final class ClassificationPrerequisite extends Prerequisite
 	public boolean IsMetBy(Student stu)
 	{
 		String c = stu.GetClassification();
-		for(int i = 0;i < ClStrings.length;i++)
+		for(int i = ClStrings.length-1;i >=0;i--)
 		{
-			if(c == ClStrings[i])
+			if(c.equals(ClStrings[i]))
 				return true;
 			else if(this == ClPrerequisites[i])
 				return false;
@@ -36,4 +36,16 @@ public final class ClassificationPrerequisite extends Prerequisite
 		return false;
 	}
 
+	@Override
+	public String toString()
+	{
+		for(int i = 0;i < ClStrings.length;i++)
+		{
+			if(this == ClPrerequisites[i])
+			{
+				return "CLASS("+ClStrings[i]+")";
+			}
+		}
+		return "CLASS(ERR)";
+	}
 }
