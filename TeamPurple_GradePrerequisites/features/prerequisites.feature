@@ -56,5 +56,5 @@ Scenario Outline: Student Take Course
     Examples: Enroll in a class already taken
     | banner    | courseCode | allowed  |
     | 54870     | BIBL211    | is       |
-    | 723355    | PSYC690    | is       |
+    | 723355    | PSYC682    | is       |
     
