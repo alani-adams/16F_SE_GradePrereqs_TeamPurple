@@ -1,7 +1,6 @@
 package implementation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,17 +46,7 @@ public abstract class Prerequisite{
 		}
 		if(data.length == 1)
 		{// Not compound
-			if(p.charAt(0) == '%')
-			{
-				return Memories.get(Integer.parseInt(p.substring(1)));
-			}
-			else if(p.contains(" "))
-			{
-				data = p.split(" ");
-				return new TestScorePrerequisite(p.substring(0, p.length()-data[data.length-1].length()-1),Integer.parseInt(data[data.length-1]));
-			}
-			else
-				return new CoursePrerequisite(p,'C');
+			return buildSimple(p,Memories);
 		}
 		else
 		{//compound
@@ -67,18 +56,36 @@ public abstract class Prerequisite{
 				SubPrereqs.add(BuildIn(s,Memories));
 			}
 			return new CompoundPrerequisite(SubPrereqs,or);
-			/*
-			CompoundPrerequisite P = new CompoundPrerequisite(BuildIn(data[0],Memories),BuildIn(data[1],Memories),or);
-			for(int i = 2;i < data.length;i++)
-			{
-				P = new CompoundPrerequisite(P,BuildIn(data[i],Memories),or);
-			}
-			return P;
-			*/
-			
 		}
-		//return null;
 	}
+	
+	private static Prerequisite buildSimple(String p,ArrayList<Prerequisite> Memories)
+	{
+		if(p.charAt(0) == '%')
+			return Memories.get(Integer.parseInt(p.substring(1)));
+		
+		switch(p)
+		{
+		case "FR":
+			return ClassificationPrerequisite.FRESHMAN;
+		case "SO":
+			return ClassificationPrerequisite.SOPHOMORE;
+		case "JR":
+			return ClassificationPrerequisite.JUNIOR;
+		case "SR":
+			return ClassificationPrerequisite.SENIOR;
+		case "GR":
+			return ClassificationPrerequisite.GRADUATE;
+		}
+		
+		if(p.contains(" "))
+		{
+			String[] data = p.split(" ");
+			return new TestScorePrerequisite(p.substring(0, p.length()-data[data.length-1].length()-1),Integer.parseInt(data[data.length-1]));
+		}
+		else
+			return new CoursePrerequisite(p,'C');
+		}
 	
 	/**
 	 * 

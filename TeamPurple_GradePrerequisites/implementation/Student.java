@@ -6,11 +6,13 @@ import java.util.HashMap;
 /**
  * Represents a student that has a banner ID that has
  * taken various courses.
+ * @author Sebastian Snyder, Alani Peters
  */
 public class Student
 {
 	private String Banner;
 	private ArrayList<Course> CoursesTaken;
+	private String Classification;
     //Maps TestType to TestScore
     private final HashMap<String,Integer> TestScores;
     
@@ -22,8 +24,9 @@ public class Student
 	{
 		CoursesTaken = new ArrayList<Course>();
 		Banner = BannerID;
-        	TestScores = new HashMap<String,Integer>();
-    	}
+    	TestScores = new HashMap<String,Integer>();
+    	Classification = "FR";
+	}
 	
 	/**
 	 * Gets the Student's Banner ID
@@ -91,5 +94,44 @@ public class Student
     	else
     		return null;
     }
+    
+    /**
+     * Gets the student's classification
+     * @returns the student's classification
+     */
+    public String GetClassification()
+    {
+    	return Classification;
+    }
+    
+    /**
+     * Sets the student's classification
+     * @param c the student's new classification
+     */
+    public void SetClassification(String c)
+    {
+    	Classification = c;
+    }
+    
 
+	public static final String[] ClStrings = {"FR","SO","JR","SR","GR"};
+	
+    /**
+     * Sets the student's classification if the new classification is better
+     * @param c the student's new classification
+     */
+    public void SetClassificationMax(String c)
+    {
+    	for(String s:ClStrings)
+    	{
+    		if(Classification == s)
+    		{
+    			Classification = c;
+    			break;
+    		}
+    		else if(c == s)
+    			break;
+    		
+    	}
+    }
 }

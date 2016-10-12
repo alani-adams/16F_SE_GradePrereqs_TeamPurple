@@ -5,9 +5,7 @@
 //
 package implementation;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -40,7 +38,7 @@ public class GradePrerequisites
 		{
 			//CSV.openColumns("csv.csv",new String[] {"Column1"});
 			///*
-			String[] ColumnNames = {"CRN", "Grade Code", "Banner ID"};
+			String[] ColumnNames = {"CRN", "Grade Code", "Banner ID","Class Code"};
 			StudentData = CSV.openColumns("cs374_anon-modified.csv",ColumnNames);
 			//StudentData = CSV.open("cs374_anon-modified.csv");
 			{
@@ -108,6 +106,7 @@ public class GradePrerequisites
 					String CRN = StudentData.getDataPoint("CRN", i);
 					S.TakeCourse(Course.GetFromCRN(CRN, G.length()==0? null :(G.charAt(0)) ));
 				}
+				S.SetClassificationMax(StudentData.getDataPoint("Class Code", i));
 			}
 			Students.put(banner, S);
 			return S;
