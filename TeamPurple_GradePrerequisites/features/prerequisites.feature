@@ -44,8 +44,8 @@ Scenario Outline: Student Take Course
     | 206198    | PSYC351    | is       |
     | 255771    | BIOL222    | is not   |
     | 255771    | BIOL351    | is not   |
-    | 173956    | CHEM134    | is       |
-    | 173956    | CHEM131    | is       |
+    | 173956    | CHEM134    | is not   |
+    | 173956    | CHEM131    | is not   |
     | 173956    | BIOL351    | is not   |
 
     Examples: Compound Prerequites
