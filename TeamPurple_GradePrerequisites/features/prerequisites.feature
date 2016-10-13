@@ -16,7 +16,7 @@ Scenario Outline: Student Take Course
     | 333175    | BIOL471    | is not   |
     | 333175    | BIOL340    | is       |
     | 480764    | BIOL354    | is       |
-    | 480764    | PSYC370    | is       |
+    | 480764    | PSYC370    | is not   |
     | 837148    | BIBL101    | is       |
     | 837982    | CORE110    | is       |
     
