@@ -38,9 +38,11 @@ public class GradePrerequisites
 		{
 			//CSV.openColumns("csv.csv",new String[] {"Column1"});
 			///*
-			String[] ColumnNames = {"CRN", "Grade Code", "Banner ID","Class Code"};
+			String[] ColumnNames = {"Subject Code", "Course Number", "Grade Code", "Banner ID", "Class Code"};
 			StudentData = CSV.openColumns("cs374_anon-modified.csv",ColumnNames);
+			//StudentData.printToStream(System.out,8,0,50);
 			//StudentData = CSV.open("cs374_anon-modified.csv");
+			//*
 			{
 				CSV CourseData = CSV.open("CourseData.csv");
 				for(int i = 0;i < CourseData.rowCount();i++)
@@ -51,11 +53,16 @@ public class GradePrerequisites
 				}
 			}
 			//Set Scoping Level
+			/*
 			{
 				CSV CRNData = CSV.open("CRNData.csv");
 				for(int i = 0;i < CRNData.rowCount();i++)
 				{
-					Course.RegisterCRN(CRNData.getDataPoint("CRN",i),CRNData.getDataPoint("Course Code", i));
+					String Code = CRNData.getDataPoint("Course Code", i);
+					String crn = CRNData.getDataPoint("CRN",i);
+					Course.RegisterCRN(crn,Code);
+					//if(Code.equals("CS120"))
+					//	System.out.println(crn+"="+Code);
 				}
 			}
 			//*/
@@ -69,19 +76,28 @@ public class GradePrerequisites
 	public static void main(String[] args)
 	{
 		//*
-		if(args.length == 2)
-			System.out.println("Prerequisites "+(new GradePrerequisites(args[0]).run(args[1])?"are":"not")+" met by student " +args[0]+" for course "+args[1]);
-		else
-			System.out.println("This program requires exactly two things to run: A BannerID and a Course Code.");
+		try
+		{
+			if(args.length == 2)
+				System.out.println("Prerequisites "+(new GradePrerequisites(args[0]).run(args[1])?"are":"not")+" met by student " +args[0]+" for course "+args[1]);
+			else
+				System.out.println("This program requires exactly two things to run: A BannerID and a Course Code.");
+		}
+		catch(IllegalStateException|IllegalArgumentException e)
+		{
+			System.out.println(e.getMessage());
+		}
 		//*/
 		/*
-		GradePrerequisites G = new GradePrerequisites("438032");
-		Student S = G.Student("438032");
-		Course C = Course.GetFromCode("COMP485");
-		System.out.println(S.GetClassification());
-		System.out.println(C);
-		System.out.println(S.CanTakeCourse(C));
-		*/
+		GradePrerequisites G = new GradePrerequisites("876727");
+		Course C = Course.GetFromCode("CS130");
+		//System.out.println(S.GetClassification());
+		Student S = G.Student(G.MyBan);
+		for(Course c: S.GetTakenCourses())
+			System.out.println(c);
+		System.out.println("\n"+C);
+		System.out.println(G.run("CS130"));
+		//*/
 	}
 	
 	public boolean run(String crn)
@@ -104,8 +120,11 @@ public class GradePrerequisites
 				if(StudentData.getDataPoint("Banner ID", i).equals(banner))
 				{
 					String G = StudentData.getDataPoint("Grade Code", i);
-					String CRN = StudentData.getDataPoint("CRN", i);
-					S.TakeCourse(Course.GetFromCRN(CRN, G.length()==0? null :(G.charAt(0)) ));
+					String Code = StudentData.getDataPoint("Subject Code", i)+StudentData.getDataPoint("Course Number", i);
+					Course C = Course.GetFromCode(Code, G.length()==0? null :(G.charAt(0)) );
+					//if(Code.equals("CS130"))
+						//System.out.println(C);
+					S.TakeCourse(C);
 					S.SetClassificationMax(StudentData.getDataPoint("Class Code", i));
 				}
 			}
