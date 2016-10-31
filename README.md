@@ -1,4 +1,4 @@
-# CS374-Repository-1
+# 16F_SE_GradePrereqs_TeamPurple
 # Team Purple
 
 To execute this program with the proper file, extract the contents of CSVs.zip to the project's root folder.
