@@ -4,134 +4,123 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Represents a student that has a banner ID that has
- * taken various courses.
- * @author Sebastian Snyder, Alani Peters
+ * A class that represents a student.
+ * This class contains references to all of the student's courses.
+ * 
+ * @author Sebastian Snyder
  */
 public class Student
 {
-	private String Banner;
-	private ArrayList<Course> CoursesTaken;
-	private String Classification;
-    //Maps TestType to TestScore
-    private final HashMap<String,Integer> TestScores;
-	public static final String[] ClStrings = {"FR","SO","JR","SR","GR"};
+	private final HashMap<String,ArrayList<Course>> Courses;
+	private final String BANNER;
+	private final Classification Class;
 	
 	/**
-	 * Creates a new student that has not taken any courses.
-	 * @param BannerID The student's BannerID
+	 * @return the courses
 	 */
-	public Student(String BannerID)
+	public ArrayList<Course> getCourses(String TermCode)
 	{
-		CoursesTaken = new ArrayList<Course>();
-		Banner = BannerID;
-    	TestScores = new HashMap<String,Integer>();
-    	Classification = "FR";
+		return Courses.get(TermCode);
 	}
-	
-	/**
-	 * Gets the Student's Banner ID
-	 * @return the Student's Banner ID
-	 */
-	public String GetBanner()
+    
+	public Student(String banner,String C)
 	{
-		return Banner;
-	}
-	
-	/**
-	 * Adds a Course to the list of Courses the student has taken.
-	 * @param C The Course to add.
-	 */
-	public void TakeCourse(Course C)
-	{
-		CoursesTaken.add(C);
-	}
-	
-	/**
-	 * Returns an ArrayList containing all Courses taken by the student
-	 * @return an ArrayList containing all Courses taken by the student
-	 */
-	public ArrayList<Course> GetTakenCourses()
-	{
-		return CoursesTaken;
-	}
-	
-	/**
-	 * A method that returns whether or not the Student has met
-	 * all of the prerequisites for a given course.
-	 * @param C The Course to check.
-	 * @returns whether or not the Student has met all
-	 * of the prerequisites.
-	 */
-	public boolean CanTakeCourse(Course C)
-	{
-		for(Prerequisite P : C.GetPrerequisites())
+		BANNER = banner;
+		Courses = new HashMap<String,ArrayList<Course>>();
+		switch(C)
 		{
-			if(!P.IsMetBy(this))
+			case "FR":
+				Class = Classification.FRESHMAN;
+				break;
+			case "SO":
+				Class = Classification.SOPHOMORE;
+				break;
+			case "JR":
+				Class = Classification.JUNIOR;
+				break;
+			case "SR":
+				Class = Classification.SENIOR;
+				break;
+			case "GR":
+				Class = Classification.GRADUATE;
+				break;
+			default:
+				Class = null;
+		}
+	}
+
+	/**
+	 * Gets this Student's Banner ID.
+	 * @return the Student's Banner ID.
+	 */
+	public String getBanner()
+	{
+		return BANNER;
+	}
+
+	/**
+	 * Adds a course to the list of this student's courses.
+	 * Silently fails if the course has no time slots.
+	 * @param course The course to add
+	 */
+	public void addCourse(Course c)
+	{
+		if(!c.hasTime())
+		{
+			return;
+		}
+		ArrayList<Course> Cs;
+		String TC = c.getTermCode();
+		if(!Courses.containsKey(TC))
+		{
+			Cs = new ArrayList<Course>();
+			Cs.add(new ChapelCourse());
+			Courses.put(TC, Cs);
+		}
+		else Cs = Courses.get(TC);
+		Cs.add(c);
+		//Cs.sort(Course.comparator());
+	}
+
+	/**
+	 * Gets the set of courses this student is taking for a particular semester
+	 * @param termcode the semester to check.
+	 * @return an ArrayList of courses this student is taking for the given semester
+	 */
+	public ArrayList<Course> getCourseSet(String termcode)
+	{
+		return Courses.get(termcode);
+	}
+	
+	/**
+	 * Returns wheter or not a time range is free for a given time slot on a given day in a given semester
+	 * @param Termcode the semester on which to test
+	 * @param D the day to test on
+	 * @param ST the start timecode
+	 * @param ET the end timecode
+	 * @return whether or not the timeslot is free
+	 */
+	public boolean SlotFree(String Termcode, Day D,short ST, short ET)
+	{
+		if(!Courses.containsKey(Termcode))
+		{
+			ArrayList<Course> Cs;
+			Cs = new ArrayList<Course>();
+			Cs.add(new ChapelCourse());
+			Courses.put(Termcode, Cs);
+		}
+		for(Course c: Courses.get(Termcode))
+		{
+			if(!c.SlotFree(D,ST,ET))
+			{
 				return false;
+			}
 		}
 		return true;
 	}
-    
-    /**
-     * 
-     * @param T
-     * @param S
-     */
-    public void SetTestScore(String T, int S)
-    {
-        TestScores.put(T, S);
-    }
-    
-    /**
-     * 
-     * @param TestType
-     * @return
-     */
-    public Integer GetTestScore(String TestType)
-    {
-    	if(TestScores.containsKey(TestType))
-    		return TestScores.get(TestType);
-    	else
-    		return null;
-    }
-    
-    /**
-     * Gets the student's classification
-     * @returns the student's classification
-     */
-    public String GetClassification()
-    {
-    	return Classification;
-    }
-    
-    /**
-     * Sets the student's classification
-     * @param c the student's new classification
-     */
-    public void SetClassification(String c)
-    {
-    	for(String s:ClStrings)
-    		if(s.equals(c))
-    			Classification = s;
-    }
-	
-    /**
-     * Sets the student's classification if the new classification is better
-     * @param c the student's new classification
-     */
-    public void SetClassificationMax(String c)
-    {
-    	for(String s:ClStrings)
-    	{
-    		if(Classification.equals(s))
-    		{
-    			Classification = c;
-    			break;
-    		}
-    		else if(c.equals(s))
-    			break;
-    		
-    	}
-    }
+
+	public Classification getClassification()
+	{
+		return Class;
+	}
 }

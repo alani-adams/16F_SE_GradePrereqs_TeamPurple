@@ -16,7 +16,7 @@ public class CSV
 	private final HashMap<String,ArrayList<String>> Data;
 	private ArrayList<String> ColumnNames;
 	
-	private static final boolean CONSERVE_MEMORY_MODE = false;
+	private static final boolean CONSERVE_MEMORY_MODE = true;
 	private static HashMap<String,String> StringHolder = CONSERVE_MEMORY_MODE?new HashMap<String,String>():null;
 	public static boolean DEBUG_MODE = false;
 	

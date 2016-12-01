@@ -1,206 +1,146 @@
 package implementation;
 
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.HashSet;
 
 /**
- * A class designed to store a course and its prerequisites
+ * A class that represents a course and the semester it's in.
+ * 
  * @author Sebastian Snyder
  */
-public final class Course
+public class Course
 {
-	//Maps CRN to CourseData
-	private static final HashMap<String,CourseData> AllCourses = new HashMap<String,CourseData>();
-	//Maps CourseCode to CourseData
-	private static final HashMap<String,CourseData> AllData = new HashMap<String,CourseData>();
+	private final String COURSE;
+	private final String TERM_CODE;
+	private final Room ROOM;
+	private final HashSet<Student> Students;
+
+
+	private final Professor Instructor;
+	private final ScheduleData CourseTimes;
 	
-	private CourseData Data;
-	private Character Grade;
-	private String CRN;
+	/**
+	 * @return the students
+	 */
+	public HashSet<Student> getStudents()
+	{
+		return Students;
+	}
+
+	public Course(String termcode, String course, Room R, Professor p)
+	{
+		TERM_CODE = termcode;
+		COURSE = course;
+		ROOM = R;
+		
+		if(R != null)
+			R.addCourse(this);
+		
+		Instructor = p;
+		Students = new HashSet<Student>();
+		CourseTimes = new ScheduleData();
+		if(p != null || !(this instanceof ChapelCourse))
+			p.addCourse(this);
+	}
+
 
 	/**
-	 * Adds the course data to the internal list of all course data or adds
-	 * a prerequisite to the specified course.
-	 * @param Code The course code to register or add to
-	 * @param Prereq The course's prerequisite. null may be passed in if none desired.
+	 * Gets the Course ID for this course
+	 * @return the Course ID for this course
 	 */
-	public static void RegisterCourse(String Code, String Prereq)
+	public String getCourseID()
 	{
-		CourseData CD;
-		if(AllData.containsKey(Code))
-			CD = AllData.get(Code);
-		else
-			CD = new CourseData(Code);
-		
-		CD.addPrerequisite(Prereq);
-		
-		AllData.put(Code, CD);
-	}
-	
-	
-	/**
-	 * Adds the CRN to the internal list of sections and maps it to
-	 * the specified course code.
-	 * @param CRN The CRN to map.
-	 * @param Code The Course code to map to.
-	 */
-	public static void RegisterCRN(String CRN, String Code)
-	{
-		if(AllCourses.containsKey(CRN))
-		{
-			//throw new IllegalArgumentException("CRN "+CRN+" already registered");// (as course "+AllCourses.get(CRN).getCode()+")");
-			return;
-		}
-		if(AllData.containsKey(Code))
-			AllCourses.put(CRN, AllData.get(Code));
-		else
-		{
-			//throw new IllegalStateException("Course "+Code+" not yet registered.");
-			return;
-		}
-	}
-	/**
-	 * Creates a Course object from the given CRN
-	 * @param CRN the CRN to look up
-	 * @returns a Course with the given CRN
-	 */
-	public static Course GetFromCRN(String CRN)
-	{
-		return GetFromCRN(CRN,null);
-	}
-	
-	/**
-	 * Creates a Course object from the given CRN and gives it a grade
-	 * @param CRN the CRN to look up
-	 * @param Grade the grade earned
-	 * @returns a Course with the given CRN and grade
-	 */
-	public static Course GetFromCRN(String CRN, Character Grade)
-	{
-		Course c = new Course(CRN, Grade);
-		c.Data = AllCourses.get(CRN);
-		if(c.Data == null)
-			throw new IllegalStateException("No Data For CRN "+CRN+" found.");
-		return c;
+		return TERM_CODE+" "+COURSE;
 	}
 
 	/**
-	 * Creates a Course object from the given Code
-	 * @param Code the Code to look up
-	 * @returns a Course with the given Code
+	 * @return the Professor of this course
 	 */
-	public static Course GetFromCode(String Code)
+	public Professor getInstructor()
 	{
-		return GetFromCode(Code,null);
+		return Instructor;
 	}
 	
 	/**
-	 * Creates a Course object from the given Code and gives it a grade
-	 * @param Code the Code to look up
-	 * @param Grade the grade earned
-	 * @returns a Course with the given Code and grade
+	 * Adds a student to the course
+	 * @param s the Student to add
 	 */
-	public static Course GetFromCode(String Code, Character Grade)
+	public void addStudent(Student s)
 	{
-		Course c = new Course(null, Grade);
-		c.Data = AllData.get(Code);
-		if(c.Data == null)
-			throw new IllegalStateException("No Data For Code "+Code+" found.");
-		return c;
-	}
-	
-	private Course(String CRN, Character Grade)
-	{
-		this.CRN = CRN;
-		this.Grade = Grade;
-	}
-	
+		Students.add(s);
+	}	
 	/**
-	 * Gets the CRN of this course
-	 * @returns the CRN of this course
+	 * Sets the timeslot of this class for a given day of the week
+	 * @param day The day to set
+	 * @param timeStart The start time, where timeStart/100 is the
+	 *        hour and timeStart%100 is the minute.
+	 * @param timeEnd The end time, where timeEnd/100 is the hour
+	 *        and timeEnd%100 is the minute.
 	 */
-	public String GetCRN()
+	public void setClassPeriod(Day day, int timeStart, int timeEnd)
 	{
-		return CRN;
+		 CourseTimes.setData(day, timeStart, timeEnd);
 	}
+
+
+	public String getTermCode()
+	{
+		return TERM_CODE;
+	}
+
+
+	public int getFirstStartTime()
+	{
+		return CourseTimes.getFirstStartTime();
+	}
+	public int getFirstEndTime()
+	{
+		return CourseTimes.getFirstEndTime();
+	}
+
+
+	public static Comparator<Course> comparator()
+	{
+		return CourseComparator.instance;
+	}
+
+
+	public boolean hasTime()
+	{
+		try
+		{
+			getFirstStartTime();
+			return true;
+		}
+		catch(IllegalStateException e)
+		{
+			return false;
+		}
+	}
+
+
+	public boolean SlotFree(Day D, short ST, short ET)
+	{
+		return CourseTimes.SlotFree(D,ST,ET);
+	}
+
 	/**
-	 * Gets the Course Code of this course
-	 * @returns the Course Code of this course
+	 * @return the room
 	 */
-	public String GetCourseCode()
+	public Room getRoom()
 	{
-		return Data.getCode();
+		return ROOM;
 	}
-	
-	/**
-	 * Gets the grade made this course.
-	 * @returns Grade or null if not set
-	 */
-	public Character GetGrade()
-	{
-		return Grade;
-	}
-	
-	/**
-	 * Sets the grade made in this course.
-	 * @param Grade The grade made in this course
-	 */
-	public void SetGrade(char Grade)
-	{
-		this.Grade = Grade;
-	}
-	
-	/**
-	 * Returns a TreeSet containing all of this course's Prerequisites
-	 * @return a TreeSet containing all of this course's Prerequisites
-	 */
-	public HashSet<Prerequisite> GetPrerequisites()
-	{
-		return Data.GetPrerequisites();
-	}
-	
-	@Override
-	public String toString()
-	{
-		String s = "{"+Data.getCode();
-		if(GetGrade() != null)
-			s+="("+GetGrade()+")";
-		for(Prerequisite p: Data.GetPrerequisites())
-			s+=";"+p;
-		return s+"}";
-	}
+
 }
 
-
-class CourseData
+class CourseComparator implements Comparator<Course>
 {
-	private String Code;
-	private final HashSet<Prerequisite> Prerequisites;
-	
-	public CourseData(String c)
+	public static final Comparator<Course> instance = new CourseComparator();
+	private CourseComparator() {}
+	@Override
+	public int compare(Course c1, Course c2)
 	{
-		Code = c;
-		Prerequisites = new HashSet<Prerequisite>();
-	}
-	
-	public void addPrerequisite(String p)
-	{
-		if(p != null)
-			Prerequisites.add(Prerequisite.Build(p));
-	}
-
-	public String getCode()
-	{
-		return Code;
-	}
-	
-	public void addPrerequisite(Prerequisite P)
-	{
-		Prerequisites.add(P);
-	}
-	
-	public HashSet<Prerequisite> GetPrerequisites()
-	{
-		return Prerequisites;
+		return c1.getFirstStartTime()-c2.getFirstStartTime();
 	}
 }
